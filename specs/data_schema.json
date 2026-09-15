@@ -1,0 +1,20 @@
+{
+    "details": {
+        "petrolPrice": 330,
+        "vehicleEfficiency": 20,
+        "maintenanceCost": 0,
+        "selectedPlatform": "inDrive",
+        "commissionRate": 0.10
+    },
+    "currentCalculation": {
+        "inputs":{
+            "fare": 1000,
+            "rideDistance": 18,
+            "deadDistance": 2
+        },
+        "outputs":{
+            "netProfit": 545,
+            "profitPerKm": 27
+        }                                                   
+    }
+}
