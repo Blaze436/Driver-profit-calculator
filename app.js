@@ -1,12 +1,3 @@
-const fare = 1000;
-const rideDistance = 18;
-const deadDistance = 2;
-const commissionRate = 0.10;
-const petrolPrice = 300;
-const vehicleEfficiency = 20;
-const salesTaxRate = 0.05;
-const maintenanceRate = 2.5;
-
 // Calculates total distance (ride + dead distance)
 function distance(rideKM, deadKM) {
   return rideKM + deadKM;
@@ -42,25 +33,30 @@ function profitKMAmount(totalProfit, totalKM) {
   return Math.floor(totalProfit / totalKM);
 }
 
-console.log("Fare:", fare);
-console.log("Ride Distance:", rideDistance);
-console.log("Dead Distance:", deadDistance);
-const totalDistance = distance(rideDistance, deadDistance);
-console.log("Total Distance:", totalDistance);
-console.log("Commission Rate:", commissionRate);
-console.log("Petrol Price:", petrolPrice);
-console.log("Vehicle Efficiency:", vehicleEfficiency);
-const petrolCost = fuelCost(totalDistance, petrolPrice, vehicleEfficiency);
-console.log("Petrol Cost:", petrolCost);
-const platformFee = platformFeeAmount(fare, commissionRate);
-console.log("Platform Fee:", platformFee);
-console.log("Sales Tax Rate:", salesTaxRate);
-const salesTax = salesTaxAmount(fare, salesTaxRate);
-console.log("Sales Tax:", salesTax);
-console.log("Maintenance Rate:", maintenanceRate);
-const maintenanceCost = maintenanceCostAmount(totalDistance, maintenanceRate);
-console.log("Maintenance Cost:", maintenanceCost);
-const netProfit = netProfitAmount(fare, petrolCost, platformFee, salesTax, maintenanceCost);
-console.log("Net Profit:", netProfit);
-const profitPerKM = profitKMAmount(netProfit, totalDistance);
-console.log("Profit per KM:", profitPerKM);
+document.getElementById("calculateButton").addEventListener("click", function() {
+
+    // Step 1: Read all input values and convert to numbers
+    const fare = Number(document.getElementById("fare").value);
+    const rideDistance = Number(document.getElementById("rideDistance").value);
+    const deadDistance = Number(document.getElementById("deadDistance").value);
+    const commissionPercent = Number(document.getElementById("commissionRate").value);
+    const petrolPrice = Number(document.getElementById("petrolPrice").value);
+    const vehicleEfficiency = Number(document.getElementById("vehicleEfficiency").value);
+    const maintenanceRate = Number(document.getElementById("maintenanceRate").value);
+
+    // Step 2: Convert commission from percentage (10) to decimal (0.10)
+    const commissionRate = commissionPercent / 100;
+
+    // Step 3: Run the calculation chain using the functions defined above
+    const totalDistance = distance(rideDistance, deadDistance);
+    const petrolCost = fuelCost(totalDistance, petrolPrice, vehicleEfficiency);
+    const platformFee = platformFeeAmount(fare, commissionRate);
+    const salesTax = salesTaxAmount(fare, 0.05);
+    const maintenanceCost = maintenanceCostAmount(totalDistance, maintenanceRate);
+    const netProfit = netProfitAmount(fare, petrolCost, platformFee, salesTax, maintenanceCost);
+    const profitPerKM = profitKMAmount(netProfit, totalDistance);
+
+    // Step 4: Display the results in the output fields
+    document.getElementById("netProfitDisplay").textContent = "Net Profit: " + netProfit + " PKR";
+    document.getElementById("profitPerKMDisplay").textContent = "Profit per KM: " + profitPerKM + " PKR/KM";
+});
