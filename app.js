@@ -1,10 +1,10 @@
 // Calculates total distance (ride + dead distance)
-function distance(rideKM, deadKM) {
+function calculateTotalDistance(rideKM, deadKM) {
   return rideKM + deadKM;
 }
 
 // Calculates total fuel expenditure (total distance, petrol price, and vehicle efficiency)
-function fuelCost(totalKM, fuelPrice, efficiency) {
+function fuelCostAmount(totalKM, fuelPrice, efficiency) {
   return (totalKM * fuelPrice) / efficiency;
 }
 
@@ -33,9 +33,11 @@ function profitKMAmount(totalProfit, totalKM) {
   return Math.floor(totalProfit / totalKM);
 }
 
+// Main function to handle the calculation when the button is clicked
 document.getElementById("calculateButton").addEventListener("click", function() {
 
     // Step 1: Read all input values and convert to numbers
+    const salesTaxRate = 0.05; // 5% sales tax consistent across all provinces for now
     const fare = Number(document.getElementById("fare").value);
     const rideDistance = Number(document.getElementById("rideDistance").value);
     const deadDistance = Number(document.getElementById("deadDistance").value);
@@ -44,14 +46,14 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     const vehicleEfficiency = Number(document.getElementById("vehicleEfficiency").value);
     const maintenanceRate = Number(document.getElementById("maintenanceRate").value);
 
-    // Step 2: Convert commission from percentage (10) to decimal (0.10)
+    // Step 2: Convert commission from percentage (10%) to decimal (0.10)
     const commissionRate = commissionPercent / 100;
 
     // Step 3: Run the calculation chain using the functions defined above
-    const totalDistance = distance(rideDistance, deadDistance);
-    const petrolCost = fuelCost(totalDistance, petrolPrice, vehicleEfficiency);
+    const totalDistance = calculateTotalDistance(rideDistance, deadDistance);
+    const petrolCost = fuelCostAmount(totalDistance, petrolPrice, vehicleEfficiency);
     const platformFee = platformFeeAmount(fare, commissionRate);
-    const salesTax = salesTaxAmount(fare, 0.05);
+    const salesTax = salesTaxAmount(fare, salesTaxRate);
     const maintenanceCost = maintenanceCostAmount(totalDistance, maintenanceRate);
     const netProfit = netProfitAmount(fare, petrolCost, platformFee, salesTax, maintenanceCost);
     const profitPerKM = profitKMAmount(netProfit, totalDistance);
