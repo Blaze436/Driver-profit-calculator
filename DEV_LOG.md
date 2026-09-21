@@ -90,3 +90,33 @@
 - **Setting efficiency to 0** → Petrol Cost becomes `Infinity` → Net Profit becomes `-Infinity`
 - **Setting both distances to 0** → Profit per KM becomes `Infinity` (division by zero)
 - Letters cannot be typed into `type="number"` fields, and pasting letters is blocked too
+
+## Day 4 — Refinement & UI Structure Planning
+**Date:** 21 September 2026
+**Time spent:** ~3 hours
+
+### What I did
+- Fixed the sales tax magic number by adding `const salesTaxRate = 0.05;` inside the click handler, scoped only to the calculation
+- Re-tested the app with the Karachi scenario — confirmed output still returns 500 / 25
+- Completed a self-review pass of `app.js` and `index.html` with fresh eyes
+- Renamed `distance()` → `calculateTotalDistance()` to avoid shadowing with the variable `totalDistance` and make the function name read as a clear verb
+- Renamed `fuelCost()` → `fuelCostAmount()` to follow the `<thing>Amount` naming pattern used by the other functions
+- Added a missing unit label to the Maintenance Rate input field (PKR/KM)
+- Fixed a spelling typo in a comment ("accross" → "across")
+- Sketched the three-layer UI structure on paper:
+  - Layer 1: **Details** tab (pre-inputs — vehicle efficiency, fuel price, maintenance)
+  - Layer 2: **Calculate Profit** overlay (per-ride inputs — fare, distances, platform dropdown, calculate button)
+  - Layer 3: **Results** popup (Net Profit, Profit/KM, verdict message)
+- Decided on back/close affordances: `< Back` top-left for the Calculate overlay, `X` top-right for the Results popup, plus the Android back button
+- Deferred the traffic-light indicator (red / yellow / green) to post-MVP
+
+### What worked
+- The rename of `distance` to `calculateTotalDistance` reads much cleaner at the call site: `const totalDistance = calculateTotalDistance(rideDistance, deadDistance);` — function is a verb, variable is a noun
+- Self-review found real issues (missing unit, naming inconsistency, shadowing) — proving the habit is valuable
+- Sketches produced a clear three-layer flow that matches the Grok mockups
+- Identified a genuinely useful UX principle: "Editing and setting numbers happens in the Details tab; choosing/selecting happens in the Calculate tab" — this is called **separation of configuration from action**
+
+### What confused me
+- Nothing major, but I realized the Details tab will need more inputs than the current implementation (4 commission fields, one per platform, instead of just 1)
+- Learned that the traffic-light feature isn't hard to code but requires deciding profit thresholds first — a research question for after launch
+- Realized my current `index.html` doesn't yet reflect the three-layer design; that restructure comes on a future day
