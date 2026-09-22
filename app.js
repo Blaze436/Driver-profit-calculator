@@ -1,3 +1,14 @@
+// Default commission rates for each platform (in percent)
+const platformDefaults = {
+    inDrive: 10,
+    Yango: 9.71,
+    Bykea: 20,
+    Custom: 0
+};
+
+// Driver's saved custom commission rate (set in Details tab, defaults to 0 for now)
+let customCommissionRate = 0; // A placeholder for now, until we implement the Details tab functionality
+
 // Calculates total distance (ride + dead distance)
 function calculateTotalDistance(rideKM, deadKM) {
   return rideKM + deadKM;
@@ -32,6 +43,13 @@ function netProfitAmount(totalFareAmount, totalPetrolCost, totalPlatformFee, tot
 function profitKMAmount(totalProfit, totalKM) {
   return Math.floor(totalProfit / totalKM);
 }
+
+// When the platform dropdown changes, update the commission input
+document.getElementById("platformSelect").addEventListener("change", function() {
+    const selectedPlatform = document.getElementById("platformSelect").value;
+    const rate = platformDefaults[selectedPlatform];
+    document.getElementById("commissionRate").value = rate;
+});
 
 // Main function to handle the calculation when the button is clicked
 document.getElementById("calculateButton").addEventListener("click", function() {

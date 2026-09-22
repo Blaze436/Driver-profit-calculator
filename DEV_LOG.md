@@ -120,3 +120,37 @@
 - Nothing major, but I realized the Details tab will need more inputs than the current implementation (4 commission fields, one per platform, instead of just 1)
 - Learned that the traffic-light feature isn't hard to code but requires deciding profit thresholds first — a research question for after launch
 - Realized my current `index.html` doesn't yet reflect the three-layer design; that restructure comes on a future day
+
+## Day 5 — Multi-Platform Commission Logic
+**Date:** 22 September 2026
+**Time spent:** ~3 hours
+
+### What I did
+- Researched whether commission rates stay constant per driver — confirmed they do (Perplexity research + primary sources)
+- Settled a design debate about whether to make presets editable: decided on fixed presets + an active input field that can be freely edited
+- Learned about JavaScript objects as lookup tables — direct equivalent of Python dictionaries
+- Built the `platformDefaults` object with 4 platforms (inDrive 10, Yango 9.71, Bykea 20, Custom 0)
+- Added a `<select>` dropdown to `index.html` with 4 options, each showing the platform name and its default rate
+- Kept the commission input field and pre-filled it with inDrive's default (10)
+- Wired the dropdown to the input using a `change` event listener — selecting a platform auto-fills the input with that platform's rate
+- Confirmed the click handler already works with this design because it reads from the input field (single source of truth)
+
+### What worked
+- The `platformDefaults[selectedPlatform]` lookup pattern clicked immediately — it's the same as a Python dict lookup
+- All 4 platforms tested successfully:
+  - inDrive (10%): Net Profit 500
+  - Yango (9.71%): Net Profit 502.9
+  - Bykea (20%): Net Profit 400
+  - Custom (15%, typed): Net Profit 450
+- Realized the design decision made earlier in the day — editable presets vs. fixed presets — simplified the code significantly. No editing logic, no persistence, no array of saved customs
+- The `change` event on a `<select>` works cleanly
+
+### What I learned
+- JavaScript objects are direct equivalents of Python dictionaries — same use case, slightly different syntax
+- The `change` event fires immediately when a dropdown option is selected (unlike `click`, which requires a specific action)
+- Keeping one element as the "single source of truth" (the commission input) is cleaner than having multiple elements fight over the same data
+- Commission rates are stable per driver (verified via research) — so a "set once" approach is appropriate, not a new value every ride
+
+### What confused me
+- For a moment I thought the dropdown and input field were duplicates — then understood they're complementary: the dropdown is a shortcut, the input is what's actually used
+- Noted that Yango's rate produces a decimal (502.9), which will need rounding for display — but that's a display concern, not a calculation bug, and it's deferred to when the real UI is built
