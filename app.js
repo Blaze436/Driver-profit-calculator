@@ -6,8 +6,8 @@ const platformDefaults = {
     Custom: 0
 };
 
-// Driver's saved custom commission rate (set in Details tab, defaults to 0 for now)
-let customCommissionRate = 0; // A placeholder for now, until we implement the Details tab functionality
+// Driver's saved custom rate (matches the Details input's default for now)
+let customCommissionRate = 12; 
 
 // Calculates total distance (ride + dead distance)
 function calculateTotalDistance(rideKM, deadKM) {
@@ -46,9 +46,26 @@ function profitKMAmount(totalProfit, totalKM) {
 
 // When the platform dropdown changes, update the commission input
 document.getElementById("platformSelect").addEventListener("change", function() {
-    const selectedPlatform = document.getElementById("platformSelect").value;
-    const rate = platformDefaults[selectedPlatform];
+    const selectedPlatform = this.value;
+
+    // Ignore the blank placeholder option
+    if (selectedPlatform === "") return;
+
+    let rate;
+    if (selectedPlatform === "Custom") {
+        rate = customCommissionRate;
+    } else {
+        rate = platformDefaults[selectedPlatform];
+    }
     document.getElementById("commissionRate").value = rate;
+
+    // Reset the dropdown so the same option can be re-selected
+    this.value = "";
+});
+
+// When the Details custom rate input changes, update the stored custom rate
+document.getElementById("customCommissionInput").addEventListener("input", function() {
+    customCommissionRate = Number(document.getElementById("customCommissionInput").value);
 });
 
 // Main function to handle the calculation when the button is clicked
@@ -80,3 +97,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     document.getElementById("netProfitDisplay").textContent = "Net Profit: " + netProfit + " PKR";
     document.getElementById("profitPerKMDisplay").textContent = "Profit per KM: " + profitPerKM + " PKR/KM";
 });
+
+// On page load, sync the Custom rate and pre-fill the commission input
+customCommissionRate = Number(document.getElementById("customCommissionInput").value);
+document.getElementById("commissionRate").value = customCommissionRate;

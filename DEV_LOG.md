@@ -154,3 +154,42 @@
 ### What confused me
 - For a moment I thought the dropdown and input field were duplicates — then understood they're complementary: the dropdown is a shortcut, the input is what's actually used
 - Noted that Yango's rate produces a decimal (502.9), which will need rounding for display — but that's a display concern, not a calculation bug, and it's deferred to when the real UI is built
+
+## Day 6 — Custom Rate & "Last-Used Value" Behavior
+**Date:** 23 September 2026
+**Time spent:** ~3 hours
+
+### What I did
+- Resolved a design fork that came up after Day 5: presets are immutable, there's ONE persistent custom rate set in Details, and the Calculate-area input never writes back to either
+- Confirmed via research that commission rates are stable per driver — supports the "set once, remember" design
+- Added a "Details (placeholder)" section to `index.html` with a `customCommissionInput` field for the driver's saved custom rate
+- Wired the Details input to update `customCommissionRate` using an `"input"` event (fires on every keystroke, unlike `"change"`)
+- Updated the dropdown handler with an `if / else` branch: "Custom" loads the driver's saved rate, other platforms load their preset
+- Fixed the page-load state: dropdown now starts blank instead of incorrectly showing "inDrive"
+- Discovered and fixed a real bug: HTML `<select>` elements don't fire `change` when the user re-picks the already-selected option
+- Applied the "fire and forget" pattern: after every pick, the dropdown resets to a blank placeholder option so the same choice can be re-selected
+- Confirmed the "never writes back" guarantee by testing: Calculate-area edits do NOT corrupt presets or the Details-saved custom rate
+
+### What worked
+- The `if / else` lookup pattern is clean: `platformDefaults[selected]` for presets, `customCommissionRate` for Custom
+- The "fire and forget" dropdown design (always resets to blank) makes the dropdown purely a shortcut, not a state indicator — much cleaner mental model
+- All 4 platforms + typed overrides tested and correct
+- The "never writes back" guarantee held through every attempt to break it
+
+### What I learned
+- The `"input"` event fires on every keystroke; `"change"` only fires when the value commits (like leaving the field or pressing Enter)
+- HTML `<select>` elements don't re-fire `change` when the user picks the same option again — a real limitation to work around, not a bug
+- The "fire and forget" pattern (reset to blank after selection) makes a dropdown usable as a repeated shortcut
+- The "last-used value" behavior is already implemented by the input field itself — the input holds whatever was last typed/picked, and nothing resets it. No extra tracking variable needed unless we discover the input gets destroyed on Day 8
+- HTML files are static — user changes don't persist across reloads without `localStorage`
+
+### What confused me
+- Initially removed the entire Details event listener when I only needed to remove part of it — a small misunderstanding of the instructions
+- Had to think through the trade-off: should Details changes live-update the commission input? Decided against it, because with a blank-reset dropdown, we can't tell if the user is currently "on Custom"
+
+### Design decisions locked in
+- **Presets are fixed** — never editable
+- **One persistent custom rate** — set in Details, lives in a variable until
+- **Calculate input is the single source of truth** — dropdown is a shortcut
+- **No live-update from Details → Calculate** — user must re-pick Custom to refresh
+- **Dropdown resets to blank after every pick** — enables re-selecting the same option

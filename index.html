@@ -7,6 +7,13 @@
 </head>
 <body>
     <h1>Driver Profit Calculator</h1>
+    <h2>Details (placeholder for now)</h2>
+    <div>
+        <label for="customCommissionInput">My Custom Commission Rate (%):</label>
+        <input type="number" id="customCommissionInput" placeholder="e.g. 12" value="12">
+    </div>
+    <hr>
+    <h2>Calculate Profit</h2>
     <div>
         <label for="fare">Fare (PKR):</label>
         <input type="number" id="fare" placeholder="e.g. 1000">
@@ -22,6 +29,7 @@
     <div>
         <label for="platformSelect">Platform:</label>
         <select id="platformSelect">
+            <option value="">Select platform...</option>
             <option value="inDrive">inDrive (10%)</option>
             <option value="Yango">Yango (9.71%)</option>
             <option value="Bykea">Bykea (20%)</option>
@@ -30,7 +38,7 @@
     </div>
     <div>
         <label for="commissionRate">Commission Rate (%):</label>
-        <input type="number" id="commissionRate" placeholder="e.g. 10" value="10">
+        <input type="number" id="commissionRate" placeholder="e.g. 10">
     </div>
     <div>
         <label for="petrolPrice">Petrol Price (PKR/L):</label>
