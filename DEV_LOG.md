@@ -193,3 +193,66 @@
 - **Calculate input is the single source of truth** — dropdown is a shortcut
 - **No live-update from Details → Calculate** — user must re-pick Custom to refresh
 - **Dropdown resets to blank after every pick** — enables re-selecting the same option
+
+## Day 7 — Validation & Edge Cases
+**Date:** 24 September 2026
+**Time spent:** ~5 hours
+
+### What I did
+- Chose Option A for validation philosophy: block calculation entirely and show a clear error message (vs. warning or silent fixing)
+- Reasoned that drivers need one clear outcome, and silent failures (like negative profit from empty inputs) would confuse them
+- Updated `index.html`:
+  - Dead distance input now defaults to `value="0"` with `step="0.001"` (matches speed-first design)
+  - Ride distance input uses `step="0.001"` to accept 3-decimal precision (allows 0.250 for 250m)
+  - Labels updated to reflect units and precision
+  - Added `<p id="errorDisplay">` for inline validation errors
+  - Added `<p id="customCommissionError">` for inline Details-tab errors
+- Wrote `validateInputs()` — a single function that receives raw strings and returns either `null` (all valid) or a specific error message
+- Validation rules:
+  - Fare, ride distance, petrol price, vehicle efficiency: required, must be > 0
+  - Commission rate: optional, must be 0-100
+  - Dead distance, maintenance rate: optional, must be >= 0
+- Rewrote the click handler to:
+  1. Read raw strings (not numbers — critical for distinguishing "" from 0)
+  2. Validate first
+  3. Only convert to numbers if validation passed
+  4. Return early on error without touching the calculation chain
+- Replaced the initial `alert()` debug with proper on-page error display
+- Added "reset results to —" behavior so stale results don't linger alongside new errors
+- Applied inline validation to the custom commission input in Details tab (special case: bad data was crossing screen boundaries via the dropdown)
+- Deferred inline validation for the other three Details fields (petrol, efficiency, maintenance) to Day 8 when the real Details tab is built
+
+### What worked
+- The `validateInputs()` function shape — one function, one job, one place to edit
+- Early return pattern in the click handler — cleanly separates "invalid" from "valid" paths
+- The raw-string-first approach correctly distinguishes empty inputs from zero values
+- All 13 break tests from Day 3 now handled:
+  - Empty fare, empty distance, empty petrol, empty efficiency → clear messages
+  - Efficiency = 0 → "Please enter a valid Vehicle Efficiency" (not Infinity)
+  - Negative numbers → clear messages
+  - Commission = 0 → valid (allows taxi / no-platform use case)
+  - Commission = 101 → rejected
+  - Scientific notation (1e100) → displays huge number (display issue, deferred)
+  - Valid Karachi scenario → 500 / 25 as expected
+
+### What I learned
+- The critical distinction between validating the raw string (before conversion) versus the number (after conversion)
+- The early `return` pattern is cleaner than nesting everything in `if / else` blocks
+- Inline validation is important when bad data crosses screen boundaries (custom commission → dropdown → Calculate input)
+- Deferred validation is acceptable when the error can be fixed in the same screen where it appears
+- Adding validation for just one Details field (custom commission) creates a temporary inconsistency but saves time; the other three will be done in the same pass as the Details tab build on Day 8
+
+### What confused me
+- Initially thought the `validateInputs` parameters needed a `0` suffix to avoid shadowing, but the parameters are scoped to the function — the outer variables don't conflict
+- Had to work through whether inline validation should be applied to all four Details fields or just custom commission
+
+### Design decisions locked in
+- **Option A validation philosophy** — invalid input blocks calculation and shows a clear message
+- **Single validation function** — receives raw strings, returns `null` or an error message string
+- **Inline validation only where necessary** — custom commission gets it because its data crosses screens; other Details fields defer to Day 8
+- **Placeholder parameter naming** — `petrolPriceRaw0` (with a 0) is temporary; will be cleaned up post-MVP
+
+### Known issues deferred to later days
+- Long decimal outputs (e.g., `8.5e+99`) — fixed in UI polish with `.toFixed()`
+- Details-tab fields other than custom commission don't show inline errors yet — deferred to Day 8
+- No persistence — reloading the page resets everything — deferred to Day 12 (localStorage)

@@ -44,6 +44,35 @@ function profitKMAmount(totalProfit, totalKM) {
   return Math.floor(totalProfit / totalKM);
 }
 
+function validateInputs(petrolPriceRaw, vehicleEfficiencyRaw, maintenanceRateRaw, commissionRateRaw, fareRaw, rideDistanceRaw, deadDistanceRaw) {
+    // Validate Petrol Price
+    if (petrolPriceRaw === "") return "Please enter the Petrol Price.";
+    if (Number(petrolPriceRaw) <= 0) return "Please enter a valid Petrol Price.";
+
+    // Validate Vehicle Efficiency
+    if (vehicleEfficiencyRaw === "") return "Please enter the Vehicle Efficiency.";
+    if (Number(vehicleEfficiencyRaw) <= 0) return "Please enter a valid Vehicle Efficiency.";
+
+    // Validate Maintenance Rate
+    if (maintenanceRateRaw !== "" && Number(maintenanceRateRaw) < 0) return "Please enter a valid Maintenance Rate."; 
+
+    // Validate Commission Rate
+    if (commissionRateRaw !== "" && (Number(commissionRateRaw) < 0 || Number(commissionRateRaw) > 100)) return "Please enter a valid Commission Rate (0-100%).";
+
+    // Validate Fare
+    if (fareRaw === "") return "Please enter the Fare.";
+    if (Number(fareRaw) <= 0) return "Please enter a valid Fare.";
+
+    // Validate Ride Distance
+    if (rideDistanceRaw === "") return "Please enter the Ride Distance.";
+    if (Number(rideDistanceRaw) <= 0) return "Please enter a valid Ride Distance.";
+
+    // Validate Dead Distance
+    if (deadDistanceRaw !== "" && Number(deadDistanceRaw) < 0) return "Please enter a valid Dead Distance.";
+
+    return null; // No validation errors
+}
+
 // When the platform dropdown changes, update the commission input
 document.getElementById("platformSelect").addEventListener("change", function() {
     const selectedPlatform = this.value;
@@ -63,28 +92,82 @@ document.getElementById("platformSelect").addEventListener("change", function() 
     this.value = "";
 });
 
-// When the Details custom rate input changes, update the stored custom rate
 document.getElementById("customCommissionInput").addEventListener("input", function() {
-    customCommissionRate = Number(document.getElementById("customCommissionInput").value);
+    const rawValue = this.value;
+    const errorEl = document.getElementById("customCommissionError");
+
+    // Empty: don't update, don't show error (user is still typing)
+    if (rawValue === "") {
+        errorEl.style.display = "none";
+        return;
+    }
+
+    const value = Number(rawValue);
+
+    // Negative or over 100: show error, don't update variable
+    if (value < 0 || value > 100) {
+        errorEl.textContent = "Custom commission must be between 0 and 100.";
+        errorEl.style.display = "block";
+        return;
+    }
+
+    // Valid: hide error, update variable
+    errorEl.style.display = "none";
+    customCommissionRate = value;
 });
 
 // Main function to handle the calculation when the button is clicked
 document.getElementById("calculateButton").addEventListener("click", function() {
 
-    // Step 1: Read all input values and convert to numbers
-    const salesTaxRate = 0.05; // 5% sales tax consistent across all provinces for now
-    const fare = Number(document.getElementById("fare").value);
-    const rideDistance = Number(document.getElementById("rideDistance").value);
-    const deadDistance = Number(document.getElementById("deadDistance").value);
-    const commissionPercent = Number(document.getElementById("commissionRate").value);
-    const petrolPrice = Number(document.getElementById("petrolPrice").value);
-    const vehicleEfficiency = Number(document.getElementById("vehicleEfficiency").value);
-    const maintenanceRate = Number(document.getElementById("maintenanceRate").value);
+  // Step 1: Read raw strings (not converted to numbers yet!)
+    const fareRaw = document.getElementById("fare").value;
+    const rideDistanceRaw = document.getElementById("rideDistance").value;
+    const deadDistanceRaw = document.getElementById("deadDistance").value;
+    const commissionRateRaw = document.getElementById("commissionRate").value;
+    const petrolPriceRaw = document.getElementById("petrolPrice").value;
+    const vehicleEfficiencyRaw = document.getElementById("vehicleEfficiency").value;
+    const maintenanceRateRaw = document.getElementById("maintenanceRate").value;
 
-    // Step 2: Convert commission from percentage (10%) to decimal (0.10)
+    // Step 2: Validate
+    const error = validateInputs(
+        petrolPriceRaw,
+        vehicleEfficiencyRaw,
+        maintenanceRateRaw,
+        commissionRateRaw,
+        fareRaw,
+        rideDistanceRaw,
+        deadDistanceRaw
+    );
+
+    const errorDisplay = document.getElementById("errorDisplay");
+
+    if (error) {
+    errorDisplay.textContent = error;
+    errorDisplay.style.display = "block";
+    document.getElementById("netProfitDisplay").textContent = "Net Profit: —";
+    document.getElementById("profitPerKMDisplay").textContent = "Profit per KM: —";
+    return;
+    }
+
+    // Hide any previous error if we got here
+    errorDisplay.style.display = "none";
+
+    // Step 3: Now convert to numbers (we know they're valid)
+    const fare = Number(fareRaw);
+    const rideDistance = Number(rideDistanceRaw);
+    const deadDistance = Number(deadDistanceRaw);
+    const commissionPercent = Number(commissionRateRaw);
+    const petrolPrice = Number(petrolPriceRaw);
+    const vehicleEfficiency = Number(vehicleEfficiencyRaw);
+    const maintenanceRate = Number(maintenanceRateRaw);
+
+    // Step 4: Set the sales tax rate
+    const salesTaxRate = 0.05; // 5% sales tax consistent across all provinces for now
+
+    // Step 5: Convert commission from percentage (10%) to decimal (0.10)
     const commissionRate = commissionPercent / 100;
 
-    // Step 3: Run the calculation chain using the functions defined above
+    // Step 6: Run the calculation chain using the functions defined above
     const totalDistance = calculateTotalDistance(rideDistance, deadDistance);
     const petrolCost = fuelCostAmount(totalDistance, petrolPrice, vehicleEfficiency);
     const platformFee = platformFeeAmount(fare, commissionRate);
@@ -93,7 +176,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     const netProfit = netProfitAmount(fare, petrolCost, platformFee, salesTax, maintenanceCost);
     const profitPerKM = profitKMAmount(netProfit, totalDistance);
 
-    // Step 4: Display the results in the output fields
+    // Step 7: Display the results in the output fields
     document.getElementById("netProfitDisplay").textContent = "Net Profit: " + netProfit + " PKR";
     document.getElementById("profitPerKMDisplay").textContent = "Profit per KM: " + profitPerKM + " PKR/KM";
 });

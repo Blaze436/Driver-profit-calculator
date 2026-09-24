@@ -12,6 +12,7 @@
         <label for="customCommissionInput">My Custom Commission Rate (%):</label>
         <input type="number" id="customCommissionInput" placeholder="e.g. 12" value="12">
     </div>
+    <p id="customCommissionError" style="color: red; display: none;"></p>
     <hr>
     <h2>Calculate Profit</h2>
     <div>
@@ -19,12 +20,12 @@
         <input type="number" id="fare" placeholder="e.g. 1000">
     </div>
     <div>
-        <label for="rideDistance">Ride Distance (KM):</label>
-        <input type="number" id="rideDistance" placeholder="e.g. 18">
+        <label for="rideDistance">Ride Distance (KM — up to 3 decimals):</label>
+        <input type="number" id="rideDistance" placeholder="e.g. 18 or 0.25 for 250m" step="0.001">
     </div>
     <div>
         <label for="deadDistance">Dead Distance (KM):</label>
-        <input type="number" id="deadDistance" placeholder="e.g. 2">
+        <input type="number" id="deadDistance" value="0" step="0.001">
     </div>
     <div>
         <label for="platformSelect">Platform:</label>
@@ -52,6 +53,7 @@
         <label for="maintenanceRate">Maintenance Rate (PKR/KM):</label>
         <input type="number" id="maintenanceRate" placeholder="e.g. 2.5 (optional)">
     </div>
+    <p id="errorDisplay" style="color: red; display: none;"></p>
     <button id="calculateButton">Calculate Profit</button>
     <p id="netProfitDisplay">Net Profit: -</p>
     <p id="profitPerKMDisplay">Profit per KM: -</p>
