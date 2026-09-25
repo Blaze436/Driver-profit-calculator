@@ -6,57 +6,78 @@
     <title>Driver Profit Calculator</title>
 </head>
 <body>
-    <h1>Driver Profit Calculator</h1>
-    <h2>Details (placeholder for now)</h2>
-    <div>
-        <label for="customCommissionInput">My Custom Commission Rate (%):</label>
-        <input type="number" id="customCommissionInput" placeholder="e.g. 12" value="12">
+    <div id="detailsScreen">
+        <h2>Details</h2>
+        <div>
+            <label for="petrolPrice">Petrol Price (PKR/L):</label>
+            <input type="number" id="petrolPrice" placeholder="e.g. 300">
+        </div>
+        <div>
+            <label for="vehicleEfficiency">Vehicle Efficiency (KM/L):</label>
+            <input type="number" id="vehicleEfficiency" placeholder="e.g. 20">
+        </div>
+        <div>
+            <label for="customCommissionInput">My Custom Commission Rate (%):</label>
+            <input type="number" id="customCommissionInput" placeholder="e.g. 12" value="12">
+        </div>
+        <p id="customCommissionError" style="color: red; display: none;"></p>
+        <div>
+            <label for="maintenanceRate">Maintenance Rate (PKR/KM):</label>
+            <input type="number" id="maintenanceRate" placeholder="e.g. 2.5 (optional)">
+        </div>
     </div>
-    <p id="customCommissionError" style="color: red; display: none;"></p>
-    <hr>
-    <h2>Calculate Profit</h2>
-    <div>
-        <label for="fare">Fare (PKR):</label>
-        <input type="number" id="fare" placeholder="e.g. 1000">
+
+    <div id="settingsScreen" style="display: none;">
+        <h2>Settings</h2>
+        <p>Coming soon.</p>
     </div>
-    <div>
-        <label for="rideDistance">Ride Distance (KM — up to 3 decimals):</label>
-        <input type="number" id="rideDistance" placeholder="e.g. 18 or 0.25 for 250m" step="0.001">
-    </div>
-    <div>
-        <label for="deadDistance">Dead Distance (KM):</label>
-        <input type="number" id="deadDistance" value="0" step="0.001">
-    </div>
-    <div>
-        <label for="platformSelect">Platform:</label>
-        <select id="platformSelect">
+
+    <div id="calculateScreen" style="display: none;">
+        <h2>Calculate Profit</h2>
+        <button id="backFromCalculate">← Back</button>
+        <div>
+            <label for="fare">Fare (PKR):</label>
+            <input type="number" id="fare" placeholder="e.g. 1000">
+        </div>
+        <div>
+            <label for="rideDistance">Ride Distance (KM — up to 3 decimals):</label>
+            <input type="number" id="rideDistance" placeholder="e.g. 18 or 0.25 for 250m" step="0.001">
+        </div>
+        <div>
+            <label for="deadDistance">Dead Distance (KM):</label>
+            <input type="number" id="deadDistance" value="0" step="0.001">
+        </div>
+        <div>
+            <label for="platformSelect">Platform:</label>
+            <select id="platformSelect">
             <option value="">Select platform...</option>
             <option value="inDrive">inDrive (10%)</option>
             <option value="Yango">Yango (9.71%)</option>
             <option value="Bykea">Bykea (20%)</option>
             <option value="Custom">Custom</option>
-        </select>
+            </select>
+        </div>
+        <div>
+            <label for="commissionRate">Commission Rate (%):</label>
+            <input type="number" id="commissionRate" placeholder="e.g. 10">
+        </div>
+        <p id="errorDisplay" style="color: red; display: none;"></p>
+        <button id="calculateButton">Calculate Profit</button>
     </div>
-    <div>
-        <label for="commissionRate">Commission Rate (%):</label>
-        <input type="number" id="commissionRate" placeholder="e.g. 10">
+
+    <div id="resultsScreen" style="display: none;">
+        <h2>Results</h2>
+        <button id="closeResults">✕</button>
+        <p id="netProfitDisplay">Net Profit: -</p>
+        <p id="profitPerKMDisplay">Profit per KM: -</p>
     </div>
-    <div>
-        <label for="petrolPrice">Petrol Price (PKR/L):</label>
-        <input type="number" id="petrolPrice" placeholder="e.g. 300">
-    </div>
-    <div>
-        <label for="vehicleEfficiency">Vehicle Efficiency (KM/L):</label>
-        <input type="number" id="vehicleEfficiency" placeholder="e.g. 20">
-    </div>
-    <div>
-        <label for="maintenanceRate">Maintenance Rate (PKR/KM):</label>
-        <input type="number" id="maintenanceRate" placeholder="e.g. 2.5 (optional)">
-    </div>
-    <p id="errorDisplay" style="color: red; display: none;"></p>
-    <button id="calculateButton">Calculate Profit</button>
-    <p id="netProfitDisplay">Net Profit: -</p>
-    <p id="profitPerKMDisplay">Profit per KM: -</p>
+
+    <nav>
+        <button id="navDetails">Details</button>
+        <button id="navCalculate">+</button>
+        <button id="navSettings">Settings</button>
+    </nav>
+
     <script src="app.js"></script>
 </body>
 </html>

@@ -256,3 +256,55 @@
 - Long decimal outputs (e.g., `8.5e+99`) — fixed in UI polish with `.toFixed()`
 - Details-tab fields other than custom commission don't show inline errors yet — deferred to Day 8
 - No persistence — reloading the page resets everything — deferred to Day 12 (localStorage)
+
+## Day 8 — Real Navigation: Details / Calculate Overlay / Settings
+**Date:** 25 September 2026
+**Time spent:** ~3 hours
+
+### What I did
+- Restructured `index.html` from a flat single-page layout into four screen containers:
+  - `detailsScreen` — pre-inputs (petrol, efficiency, maintenance, custom commission)
+  - `settingsScreen` — placeholder heading only
+  - `calculateScreen` — per-ride inputs (fare, distances, dropdown, commission, calculate button)
+  - `resultsScreen` — net profit and profit/km displays
+- Added a bottom `<nav>` bar with three buttons: Details, +, Settings
+- Added a `< Back` button to the Calculate screen and an `✕` close button to the Results screen
+- Wrote `showScreen(screenId)` — a single function that hides all four screens and shows one
+- Wired five click handlers: three nav buttons, one back button, one close button
+- Added `showScreen("resultsScreen")` at the end of the calculate click handler so results become visible after calculation
+- Removed the duplicate `errorDisplay` element (one was accidentally in both `detailsScreen` and `calculateScreen`)
+- **Kept every existing `id` the same throughout** — no changes needed to the calculation logic in `app.js`
+
+### What worked
+- The "hide all, then show one" pattern in `showScreen()` is simple and reliable
+- The move-and-keep-IDs strategy paid off — calculation logic still works untouched
+- All navigation flows correctly: Details → + → Calculate → Calculate button → Results → ✕ → Calculate → Back → Details
+- The `value="0"` approach on the commission input eliminates the empty-field ambiguity Claude flagged before Day 8
+- All 13 Day 3 break tests still pass in the new structure
+
+### What I learned
+- `element.style.display = "none"` vs `"block"` is the simplest mechanism for screen switching (no CSS classes yet — that comes with Tailwind)
+- When you're moving HTML around, preserving IDs means JS doesn't need to know about the move — it just finds the same elements in new places
+- A calculation running correctly doesn't mean the user can see the result — the DOM gets updated, but if the container is hidden, nothing appears
+- Cross-screen validation is a real challenge: errors on one screen may point to inputs on another
+
+### What confused me
+- Momentarily thought the Calculate button was broken — but the calculation was running; the results were just hidden inside a `display: none` container
+
+### Design decisions locked in
+- **Details screen is the landing screen** on page load
+- **Every screen has its own heading** (no shared persistent `<h1>`) — saves vertical space on mobile and matches the Grok mockups
+- **Back button on Calculate → Details** (the "home" concept)
+- **Close button on Results → Calculate** (so the driver can tweak inputs and re-calculate)
+- **Nav buttons visible at all times** (bottom of the page, even on Calculate and Results — though for MVP, these two screens will hide the nav in a later Tailwind pass to feel more "overlay"-like)
+
+### Known issues deferred
+- Cross-screen validation: errors on the Calculate screen may point to inputs on the Details screen. Requires either inline validation on Details fields or routing the user to the right screen automatically
+- Screens are still unstyled — everything is default browser styling. Tailwind comes next
+- Calculate and Results screens currently take over the full page instead of appearing as overlays with dimmed backgrounds behind them
+
+### Save button(Idea)
+Right now the errors made in Detals Tab only appear after the Calculate Button is pressed in Calculate tab. To counteract this problem, I have proposed to add a **Save** Button in Details Tab. Following are three reasons why:
+ - It solves the Cross-Screen validation problem: Errors will be caught in the Details Tab when the Save button is pressed.
+ - It creates a **Natural Commit** moment, giving the driver a confirmation that their Details are saved.
+ - It matches and performs localStroage's actual behaviour: The save button will be used to save the Details in LocalStorage.

@@ -9,6 +9,38 @@ const platformDefaults = {
 // Driver's saved custom rate (matches the Details input's default for now)
 let customCommissionRate = 12; 
 
+// Shows one screen, hides all others
+function showScreen(screenId) {
+    // Hide all four screens
+    document.getElementById("detailsScreen").style.display = "none";
+    document.getElementById("settingsScreen").style.display = "none";
+    document.getElementById("calculateScreen").style.display = "none";
+    document.getElementById("resultsScreen").style.display = "none";
+
+    // Show the requested one
+    document.getElementById(screenId).style.display = "block";
+}
+
+document.getElementById("navDetails").addEventListener("click", function() {
+    showScreen("detailsScreen");
+});
+
+document.getElementById("navCalculate").addEventListener("click", function() {
+    showScreen("calculateScreen");
+});
+
+document.getElementById("navSettings").addEventListener("click", function() {
+    showScreen("settingsScreen");
+});
+
+document.getElementById("backFromCalculate").addEventListener("click", function() {
+    showScreen("detailsScreen");
+});
+
+document.getElementById("closeResults").addEventListener("click", function() {
+    showScreen("calculateScreen");
+});
+
 // Calculates total distance (ride + dead distance)
 function calculateTotalDistance(rideKM, deadKM) {
   return rideKM + deadKM;
@@ -179,6 +211,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     // Step 7: Display the results in the output fields
     document.getElementById("netProfitDisplay").textContent = "Net Profit: " + netProfit + " PKR";
     document.getElementById("profitPerKMDisplay").textContent = "Profit per KM: " + profitPerKM + " PKR/KM";
+    showScreen("resultsScreen");
 });
 
 // On page load, sync the Custom rate and pre-fill the commission input
