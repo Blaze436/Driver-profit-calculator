@@ -7,7 +7,7 @@ const platformDefaults = {
 };
 
 // Driver's saved custom rate (matches the Details input's default for now)
-let customCommissionRate = 12; 
+let customCommissionRate = 0; 
 
 // Shows one screen, hides all others
 function showScreen(screenId) {
@@ -76,6 +76,25 @@ function profitKMAmount(totalProfit, totalKM) {
   return Math.floor(totalProfit / totalKM);
 }
 
+function validateDetails(petrolPriceRaw, vehicleEfficiencyRaw, maintenanceRateRaw, customCommissionRaw) {
+    // Petrol Price — required, > 0
+    if (petrolPriceRaw === "") return "Please enter the Petrol Price.";
+    if (Number(petrolPriceRaw) <= 0) return "Please enter a valid Petrol Price.";
+
+    // Vehicle Efficiency — required, > 0
+    if (vehicleEfficiencyRaw === "") return "Please enter the Vehicle Efficiency.";
+    if (Number(vehicleEfficiencyRaw) <= 0) return "Please enter a valid Vehicle Efficiency.";
+
+    // Maintenance Rate — optional, >= 0
+    if (maintenanceRateRaw !== "" && Number(maintenanceRateRaw) < 0) return "Please enter a valid Maintenance Rate.";
+
+    // Custom Commission — required, 0-100
+    if (customCommissionRaw === "") return "Please enter a Custom Commission Rate (0 for none).";
+    if (Number(customCommissionRaw) < 0 || Number(customCommissionRaw) > 100) return "Custom commission must be between 0 and 100.";
+
+    return null;
+}
+
 function validateInputs(petrolPriceRaw, vehicleEfficiencyRaw, maintenanceRateRaw, commissionRateRaw, fareRaw, rideDistanceRaw, deadDistanceRaw) {
     // Validate Petrol Price
     if (petrolPriceRaw === "") return "Please enter the Petrol Price.";
@@ -89,7 +108,8 @@ function validateInputs(petrolPriceRaw, vehicleEfficiencyRaw, maintenanceRateRaw
     if (maintenanceRateRaw !== "" && Number(maintenanceRateRaw) < 0) return "Please enter a valid Maintenance Rate."; 
 
     // Validate Commission Rate
-    if (commissionRateRaw !== "" && (Number(commissionRateRaw) < 0 || Number(commissionRateRaw) > 100)) return "Please enter a valid Commission Rate (0-100%).";
+    if (commissionRateRaw === "") return "Please enter a Commission Rate (0 for no platform).";
+    if (Number(commissionRateRaw) < 0 || Number(commissionRateRaw) > 100) return "Please enter a valid Commission Rate (0-100%).";
 
     // Validate Fare
     if (fareRaw === "") return "Please enter the Fare.";
@@ -148,6 +168,41 @@ document.getElementById("customCommissionInput").addEventListener("input", funct
     customCommissionRate = value;
 });
 
+document.getElementById("saveDetailsBtn").addEventListener("click", function() {
+    const petrolRaw = document.getElementById("petrolPrice").value;
+    const efficiencyRaw = document.getElementById("vehicleEfficiency").value;
+    const maintenanceRaw = document.getElementById("maintenanceRate").value;
+    const commissionRaw = document.getElementById("customCommissionInput").value;
+
+    const error = validateDetails(petrolRaw, efficiencyRaw, maintenanceRaw, commissionRaw);
+    const messageEl = document.getElementById("detailsSaveMessage");
+
+    if (error) {
+        messageEl.textContent = error;
+        messageEl.style.color = "red";
+        messageEl.style.background = "rgba(239, 68, 68, 0.15)";
+        messageEl.style.display = "block";
+        return;
+    }
+
+        // All valid
+    messageEl.textContent = "Details saved ✓";
+    messageEl.style.color = "green";
+    messageEl.style.background =  "rgba(34, 197, 94, 0.15)";
+    messageEl.style.display = "block";
+});
+
+// Hide the save message when the user starts editing any Details field
+const detailsInputs = ["petrolPrice", "vehicleEfficiency", "customCommissionInput", "maintenanceRate"];
+detailsInputs.forEach(function(id) {
+    document.getElementById(id).addEventListener("input", function() {
+        const msg = document.getElementById("detailsSaveMessage");
+        if (msg.style.display === "block") {
+            msg.style.display = "none";
+        }
+    });
+});
+
 // Main function to handle the calculation when the button is clicked
 document.getElementById("calculateButton").addEventListener("click", function() {
 
@@ -176,8 +231,8 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     if (error) {
     errorDisplay.textContent = error;
     errorDisplay.style.display = "block";
-    document.getElementById("netProfitDisplay").textContent = "Net Profit: —";
-    document.getElementById("profitPerKMDisplay").textContent = "Profit per KM: —";
+    document.getElementById("netProfitDisplay").textContent = "—";
+    document.getElementById("profitPerKMDisplay").textContent = "—";
     return;
     }
 
@@ -209,8 +264,8 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     const profitPerKM = profitKMAmount(netProfit, totalDistance);
 
     // Step 7: Display the results in the output fields
-    document.getElementById("netProfitDisplay").textContent = "Net Profit: " + netProfit + " PKR";
-    document.getElementById("profitPerKMDisplay").textContent = "Profit per KM: " + profitPerKM + " PKR/KM";
+    document.getElementById("netProfitDisplay").textContent = Math.round(netProfit);
+    document.getElementById("profitPerKMDisplay").textContent = profitPerKM;
     showScreen("resultsScreen");
 });
 

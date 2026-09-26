@@ -4,78 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driver Profit Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div id="detailsScreen">
-        <h2>Details</h2>
-        <div>
-            <label for="petrolPrice">Petrol Price (PKR/L):</label>
-            <input type="number" id="petrolPrice" placeholder="e.g. 300">
+<body class="bg-neutral-900 text-white text-lg">
+    <div id="detailsScreen" class="min-h-screen p-6 pb-24">
+        <h2 class="text-3xl font-bold mb-6">Details</h2>
+        <div class="mb-4">
+            <label for="petrolPrice" class="block text-base text-neutral-400 mb-2">Petrol Price (PKR/L)</label>
+            <input type="number" id="petrolPrice" placeholder="e.g. 300" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
         </div>
-        <div>
-            <label for="vehicleEfficiency">Vehicle Efficiency (KM/L):</label>
-            <input type="number" id="vehicleEfficiency" placeholder="e.g. 20">
+        <div class="mb-4">
+            <label for="vehicleEfficiency" class="block text-base text-neutral-400 mb-2">Vehicle Efficiency (KM/L):</label>
+            <input type="number" id="vehicleEfficiency" placeholder="e.g. 20" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
         </div>
-        <div>
-            <label for="customCommissionInput">My Custom Commission Rate (%):</label>
-            <input type="number" id="customCommissionInput" placeholder="e.g. 12" value="12">
+        <div class="mb-4">
+            <label for="customCommissionInput" class="block text-base text-neutral-400 mb-2">My Custom Commission Rate (%):</label>
+            <input type="number" id="customCommissionInput" placeholder="e.g. 10" value="0" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
         </div>
-        <p id="customCommissionError" style="color: red; display: none;"></p>
-        <div>
-            <label for="maintenanceRate">Maintenance Rate (PKR/KM):</label>
-            <input type="number" id="maintenanceRate" placeholder="e.g. 2.5 (optional)">
+        <p id="customCommissionError" style="display: none;" class="text-base mt-2 text-red-400"></p>
+        <div class="mb-4">
+            <label for="maintenanceRate" class="block text-base text-neutral-400 mb-2">Maintenance Rate (PKR/KM):</label>
+            <input type="number" id="maintenanceRate" placeholder="e.g. 2.5 (optional)" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+        </div>
+        <button id="saveDetailsBtn" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg mt-6">Save Details</button>
+        <p id="detailsSaveMessage" style="display: none;" class="mt-4 text-center py-3 px-4 rounded-lg"></p>
+    </div>
+
+    <div id="settingsScreen" class="min-h-screen p-6 pb-24" style="display: none;">
+        <h2 class="text-3xl font-bold mb-6">Settings</h2>
+
+        <div class="bg-neutral-800 rounded-xl p-6 text-center">
+            <p class="text-4xl mb-3">⚙</p>
+            <p class="text-neutral-400">Nothing here yet.</p>
+            <p class="text-base text-neutral-500 mt-2">Future settings will live here.</p>
         </div>
     </div>
 
-    <div id="settingsScreen" style="display: none;">
-        <h2>Settings</h2>
-        <p>Coming soon.</p>
-    </div>
-
-    <div id="calculateScreen" style="display: none;">
-        <h2>Calculate Profit</h2>
-        <button id="backFromCalculate">← Back</button>
-        <div>
-            <label for="fare">Fare (PKR):</label>
-            <input type="number" id="fare" placeholder="e.g. 1000">
+    <div id="calculateScreen" class="min-h-screen p-6 pb-24" style="display: none;">
+        <div class="flex items-center mb-6">
+            <button id="backFromCalculate" class="text-neutral-400 hover:text-white text-4xl">←</button>
+            <h2 class="text-3xl font-bold ml-4">Calculate Profit</h2>
         </div>
-        <div>
-            <label for="rideDistance">Ride Distance (KM — up to 3 decimals):</label>
-            <input type="number" id="rideDistance" placeholder="e.g. 18 or 0.25 for 250m" step="0.001">
+        <div class="mb-4">
+            <label for="fare" class="block text-base text-neutral-400 mb-2">Fare (PKR)</label>
+            <input type="number" id="fare" placeholder="e.g. 1000" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
         </div>
-        <div>
-            <label for="deadDistance">Dead Distance (KM):</label>
-            <input type="number" id="deadDistance" value="0" step="0.001">
+        <div class="mb-4">
+            <label for="rideDistance" class="block text-base text-neutral-400 mb-2">Ride Distance (KM)</label>
+            <input type="number" id="rideDistance" placeholder="e.g. 4.5 or 0.25 for 250m" step="0.001" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
         </div>
-        <div>
-            <label for="platformSelect">Platform:</label>
-            <select id="platformSelect">
-            <option value="">Select platform...</option>
-            <option value="inDrive">inDrive (10%)</option>
-            <option value="Yango">Yango (9.71%)</option>
-            <option value="Bykea">Bykea (20%)</option>
-            <option value="Custom">Custom</option>
+        <div class="mb-4">
+            <label for="deadDistance" class="block text-base text-neutral-400 mb-2">Dead Distance (KM)</label>
+            <input type="number" id="deadDistance" value="0" step="0.001" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+        </div>
+        <div class="mb-4">
+            <label for="platformSelect" class="block text-base text-neutral-400 mb-2">Platform</label>
+            <select id="platformSelect" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+                <option value="">Select platform...</option>
+                <option value="inDrive">inDrive (10%)</option>
+                <option value="Yango">Yango (9.71%)</option>
+                <option value="Bykea">Bykea (20%)</option>
+                <option value="Custom">Custom</option>
             </select>
         </div>
-        <div>
-            <label for="commissionRate">Commission Rate (%):</label>
-            <input type="number" id="commissionRate" placeholder="e.g. 10">
+        <div class="mb-4">
+            <label for="commissionRate" class="block text-base text-neutral-400 mb-2">Commission Rate (%)</label>
+            <input type="number" id="commissionRate" placeholder="e.g. 10" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
         </div>
-        <p id="errorDisplay" style="color: red; display: none;"></p>
-        <button id="calculateButton">Calculate Profit</button>
+        <p id="errorDisplay" style="display: none;" class="text-red-400 text-base mt-2 mb-4"></p>
+        <button id="calculateButton" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg mt-6">Calculate Profit</button>
     </div>
 
-    <div id="resultsScreen" style="display: none;">
-        <h2>Results</h2>
-        <button id="closeResults">✕</button>
-        <p id="netProfitDisplay">Net Profit: -</p>
-        <p id="profitPerKMDisplay">Profit per KM: -</p>
+    <div id="resultsScreen" class="min-h-screen p-6 pb-24" style="display: none;">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-3xl font-bold">Results</h2>
+            <button id="closeResults" class="text-neutral-400 hover:text-white text-3xl">✕</button>
+        </div>
+
+        <div class="bg-neutral-800 rounded-xl p-6 mt-8">
+            <div class="text-center">
+                <p class="text-base text-neutral-400 mb-2">Net Profit</p>
+                <p id="netProfitDisplay" class="text-4xl font-bold text-white">—</p>
+                <p class="text-base text-neutral-400 mt-1">PKR</p>
+            </div>
+
+            <div class="border-t border-neutral-700 my-6"></div>
+
+            <div class="text-center">
+                <p class="text-base text-neutral-400 mb-2">Profit per Kilometer</p>
+                <p id="profitPerKMDisplay" class="text-4xl font-bold text-white">—</p>
+               <p class="text-base text-neutral-400 mt-1">PKR / KM</p>
+            </div>
+        </div>
     </div>
 
-    <nav>
-        <button id="navDetails">Details</button>
-        <button id="navCalculate">+</button>
-        <button id="navSettings">Settings</button>
+    <nav class="fixed bottom-0 left-0 right-0 bg-neutral-800 border-t border-neutral-700 flex justify-around items-center py-3">
+        <button id="navDetails" class="text-neutral-400 hover:text-white flex flex-col items-center">
+            <span class="text-xl">☰</span>
+            <span class="text-xs mt-1">Details</span>
+        </button>
+        <button id="navCalculate" class="bg-green-600 hover:bg-green-700 text-white rounded-full w-20 h-20 -mt-8 flex items-center justify-center text-5xl leading-none pb-3 font-bold shadow-lg">
+        +
+        </button>
+        <button id="navSettings" class="text-neutral-400 hover:text-white flex flex-col items-center">
+            <span class="text-xl">⚙</span>
+            <span class="text-xs mt-1">Settings</span>
+        </button>
     </nav>
 
     <script src="app.js"></script>

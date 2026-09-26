@@ -308,3 +308,50 @@ Right now the errors made in Detals Tab only appear after the Calculate Button i
  - It solves the Cross-Screen validation problem: Errors will be caught in the Details Tab when the Save button is pressed.
  - It creates a **Natural Commit** moment, giving the driver a confirmation that their Details are saved.
  - It matches and performs localStroage's actual behaviour: The save button will be used to save the Details in LocalStorage.
+
+ ## Day 9 — Save Button, Tailwind Styling, and Design Backlog
+**Date:** 26 September 2026
+**Time spent:** ~4 hours
+
+### What I did
+- Fixed commission-blank bug: commission is now required (>0), no silent empty-as-zero behavior
+- Added Save Details button with `validateDetails()` function
+- Wired Save button: shows green "Saved ✓" or red error message inline
+- Added "hide on input" listener so message disappears when user starts editing
+- Added Tailwind CSS via CDN
+- Styled all four screens (Details, Calculate, Results, Settings) with dark-mode card layouts
+- Styled bottom nav: fixed position, floating circular + button
+- Increased text sizes throughout for driver readability (text-lg body, text-3xl headings, text-4xl result numbers)
+- Fixed + button centering with `leading-none`
+- Fixed `Math.round(netProfit)` display (502.9 → 503)
+
+### What worked
+- Tailwind's card pattern (bg-neutral-800 rounded-xl p-6) creates consistent styling across screens
+- The inline "hide message on input" pattern felt much cleaner than setTimeout auto-dismiss
+- Splitting number display from label display on Results fixed both formatting and readability
+- Empty state design for Settings screen (icon + message) makes the "coming soon" feel intentional
+
+### What I learned
+- Tailwind utility class naming (p-4 = padding, bg-neutral-800 = dark gray, etc.)
+- Missing `});` on an event handler can silently break ALL subsequent code
+- `leading-none` fixes vertical text centering in flex containers
+- `text-sm`, `text-base`, `text-lg`, `text-2xl` are the Tailwind size scale — misreading `2xl` as `2x1` breaks the class silently
+- The `forEach` pattern for wiring multiple similar listeners
+
+### What confused me
+- Broke everything by forgetting the closing `});` — took 5 minutes to find
+- `text-2x1` typo went unnoticed until the screenshot showed small headings
+- The + button wasn't vertically centered due to the font's default line-height
+
+### Design ideas backlogged (from end-of-day brainstorm)
+- **Urdu translation** — critical for market reach. 8-10 hours. Deferred to November refinement.
+- **(i) info buttons** on inputs — deferred until user testing shows confusion
+- **Traffic-light verdict** on Results — planned post-MVP
+- **Pie chart** of cost breakdown — phase 2 "Stats" feature
+- **Day/Night contrast toggle** — skipped; app is already dark-mode
+- **Inline dropdown inside commission input** — deferred; current separate elements work fine
+- **FAQ content in Settings** — deferred to Urdu/help-content pass
+
+### Known issues deferred
+- Calculate/Results screens still show bottom nav (should feel more overlay-like)
+- No persistence yet — reload resets everything
