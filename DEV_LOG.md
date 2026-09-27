@@ -355,3 +355,42 @@ Right now the errors made in Detals Tab only appear after the Calculate Button i
 ### Known issues deferred
 - Calculate/Results screens still show bottom nav (should feel more overlay-like)
 - No persistence yet — reload resets everything
+
+## Day 10 — Real Phone Testing & Mobile Fixes
+**Date:** 27 September 2026
+**Time spent:** ~2 hours
+
+### What I did
+- Set up Live Server over LAN to open the app on a real Android phone via `http://192.168.0.35:5500`
+- Discovered and resolved a Windows Firewall issue blocking the connection
+- Tested the entire user flow on the actual device:
+  Details → Save → + → Calculate → Results → Close → Back → Settings
+- Found and fixed four real device issues:
+  1. **+ button off-center** — text characters sit on a baseline, not vertically centered. Fixed with an SVG icon.
+  2. **No visible feedback on tap** — added `active:scale-95 transition-transform` to buttons and `active:text-green-500` to nav
+  3. **Save message hidden below the fold** — added `scrollIntoView({ behavior: "smooth", block: "center" })` to both error and success paths
+  4. **Labels too dim in bright light** — bumped `text-neutral-400` → `text-neutral-300` across labels, `text-neutral-500` → `text-neutral-400` for secondary text
+- Additionally increased and brightened the Results screen text for driver readability
+
+### What worked
+- The full flow works flawlessly on a real phone
+- Number keyboard appears correctly on all number inputs
+- No iOS-style zoom-in on input focus (thanks to `text-lg`)
+- Keyboard pushes nav bar up without hiding inputs
+- Screen transitions feel instant — very responsive
+- The nav-first user flow is preferred over back/X buttons — validates the three-destination design
+
+### What I learned
+- **Text characters don't center vertically in flex containers** — they sit on a baseline. SVG icons solve this cleanly.
+- **Live Server over LAN** is a fast way to test on a real device once the firewall is configured
+- **Firewall issues** are a common first-time blocker for phone testing
+- **Visual feedback on tap** matters more on mobile than desktop
+- **`scrollIntoView`** with smooth behavior is the clean way to draw attention to a message
+- **Brightness matters more on a phone** in daylight — a driver needs higher contrast
+
+### What confused me
+- Briefly thought the + button still wasn't centered after the first fix — realized the `+` text character was the problem, not the alignment classes
+
+### Design decisions confirmed
+- **Nav-first user flow**: driver naturally prefers the bottom nav buttons over back/X buttons
+- **Number keyboard** works as intended on mobile

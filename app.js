@@ -182,6 +182,7 @@ document.getElementById("saveDetailsBtn").addEventListener("click", function() {
         messageEl.style.color = "red";
         messageEl.style.background = "rgba(239, 68, 68, 0.15)";
         messageEl.style.display = "block";
+        messageEl.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
     }
 
@@ -190,6 +191,7 @@ document.getElementById("saveDetailsBtn").addEventListener("click", function() {
     messageEl.style.color = "green";
     messageEl.style.background =  "rgba(34, 197, 94, 0.15)";
     messageEl.style.display = "block";
+    messageEl.scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
 // Hide the save message when the user starts editing any Details field
