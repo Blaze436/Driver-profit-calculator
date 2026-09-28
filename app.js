@@ -76,6 +76,7 @@ function profitKMAmount(totalProfit, totalKM) {
   return Math.floor(totalProfit / totalKM);
 }
 
+// Validates all inputs for the details screen
 function validateDetails(petrolPriceRaw, vehicleEfficiencyRaw, maintenanceRateRaw, customCommissionRaw) {
     // Petrol Price — required, > 0
     if (petrolPriceRaw === "") return "Please enter the Petrol Price.";
@@ -95,6 +96,7 @@ function validateDetails(petrolPriceRaw, vehicleEfficiencyRaw, maintenanceRateRa
     return null;
 }
 
+// Validates all inputs for the calculation screen
 function validateInputs(petrolPriceRaw, vehicleEfficiencyRaw, maintenanceRateRaw, commissionRateRaw, fareRaw, rideDistanceRaw, deadDistanceRaw) {
     // Validate Petrol Price
     if (petrolPriceRaw === "") return "Please enter the Petrol Price.";
@@ -125,6 +127,33 @@ function validateInputs(petrolPriceRaw, vehicleEfficiencyRaw, maintenanceRateRaw
     return null; // No validation errors
 }
 
+// Saves all four Details values to localStorage as one bundled object
+function saveSettingsToStorage() {
+    const settingsToSave = {
+        petrolPrice: document.getElementById("petrolPrice").value,
+        vehicleEfficiency: document.getElementById("vehicleEfficiency").value,
+        maintenanceRate: document.getElementById("maintenanceRate").value,
+        customCommission: document.getElementById("customCommissionInput").value
+    };
+
+    localStorage.setItem("driverSettings", JSON.stringify(settingsToSave));
+}
+
+// Loads saved Details values from localStorage (if any)
+function loadSettingsFromStorage() {
+    const saved = localStorage.getItem("driverSettings");
+
+    // First-time user: nothing saved yet
+    if (saved === null) return;
+
+    const settings = JSON.parse(saved);
+
+    document.getElementById("petrolPrice").value = settings.petrolPrice || "";
+    document.getElementById("vehicleEfficiency").value = settings.vehicleEfficiency || "";
+    document.getElementById("maintenanceRate").value = settings.maintenanceRate || "";
+    document.getElementById("customCommissionInput").value = settings.customCommission || "0";
+}
+
 // When the platform dropdown changes, update the commission input
 document.getElementById("platformSelect").addEventListener("change", function() {
     const selectedPlatform = this.value;
@@ -144,6 +173,7 @@ document.getElementById("platformSelect").addEventListener("change", function() 
     this.value = "";
 });
 
+// When the user types in the custom commission input, validate and update the variable
 document.getElementById("customCommissionInput").addEventListener("input", function() {
     const rawValue = this.value;
     const errorEl = document.getElementById("customCommissionError");
@@ -168,6 +198,7 @@ document.getElementById("customCommissionInput").addEventListener("input", funct
     customCommissionRate = value;
 });
 
+// When the user clicks "Save Details", validate and show a message
 document.getElementById("saveDetailsBtn").addEventListener("click", function() {
     const petrolRaw = document.getElementById("petrolPrice").value;
     const efficiencyRaw = document.getElementById("vehicleEfficiency").value;
@@ -192,6 +223,7 @@ document.getElementById("saveDetailsBtn").addEventListener("click", function() {
     messageEl.style.background =  "rgba(34, 197, 94, 0.15)";
     messageEl.style.display = "block";
     messageEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    saveSettingsToStorage(); // Save to localStorage
 });
 
 // Hide the save message when the user starts editing any Details field
@@ -271,6 +303,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     showScreen("resultsScreen");
 });
 
-// On page load, sync the Custom rate and pre-fill the commission input
+// On page load: restore saved settings first, then sync the commission input
+loadSettingsFromStorage();
 customCommissionRate = Number(document.getElementById("customCommissionInput").value);
 document.getElementById("commissionRate").value = customCommissionRate;

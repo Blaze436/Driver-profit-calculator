@@ -394,3 +394,44 @@ Right now the errors made in Detals Tab only appear after the Calculate Button i
 ### Design decisions confirmed
 - **Nav-first user flow**: driver naturally prefers the bottom nav buttons over back/X buttons
 - **Number keyboard** works as intended on mobile
+
+## Day 11 — localStorage Persistence
+**Date:** 28 September 2026
+**Time spent:** ~2 hours
+
+### What I did
+- Learned the `localStorage` API: only two core operations (`setItem`, `getItem`)
+- Understood the critical constraint: **localStorage only stores strings** — numbers get silently converted, objects need explicit conversion
+- Learned the JSON bridge: `JSON.stringify()` to save objects, `JSON.parse()` to load them
+- Designed the storage shape: bundled object under one key (`driverSettings`) rather than four separate keys
+  - Reasoning: bundled matches the domain ("driver settings is one thing"), gives atomic saves (no partial corruption), and is easier to extend later
+- Wrote `saveSettingsToStorage()` — builds a `settingsToSave` object from all four Details inputs, stringifies it, saves under key `driverSettings`
+- Wrote `loadSettingsFromStorage()` — reads the key, checks for `null` (first-time user), parses the JSON, fills the four inputs
+- Used `|| ""` fallback on load to guard against missing keys (defensive loading)
+- Wired `saveSettingsToStorage()` into the existing Save button handler (success path only)
+- Wired `loadSettingsFromStorage()` to run on page load, **before** the commission rate sync
+- Verified the full cycle: enter → Save → close → reopen → values restored
+
+### What worked
+- The bundled-object approach made the save logic one line, not four
+- The `if (saved === null) return;` check cleanly handles first-time users without errors
+- The `|| ""` fallback on load future-proofs against format changes
+- DevTools Application tab makes the storage directly visible — very useful for confirming the JSON blob is correct
+- Order of operations at page load (load settings → sync commission) is critical; getting it wrong would cause silent bugs
+
+### What I learned
+- **localStorage only stores strings** — a 2009 design decision to keep the API universal and simple
+- **`JSON.stringify()` / `JSON.parse()`** are the bridge for any non-string data (objects, arrays, numbers when type matters)
+- **`localStorage.getItem()` returns `null` for missing keys** — the standard way to detect first-time users
+- **Bundling related values into one object** gives atomic saves (all-or-nothing) vs. separate keys which can partially fail
+- **Order matters at page load**: load from storage BEFORE syncing variables that depend on the loaded values
+- **`|| ""` fallbacks** on load prevent `"undefined"` from ever appearing in inputs
+
+### What confused me
+- Initially thought `JSON.stringify()` converts "number → string" — clarified that it converts ANY JavaScript value to a JSON-formatted string, and `JSON.parse()` reverses it back to the original type
+
+### Design decisions locked in
+- **Single key `driverSettings`** — bundled object, not four separate keys
+- **Always save all four fields**, even if some are empty — simpler, uniform handling
+- **Defensive loading** — `|| ""` guards against missing keys in future format changes
+- **Details-only persistence** — Calculate's commission input is still session-only by design (last-used value, resets on reload)
