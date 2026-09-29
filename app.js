@@ -9,6 +9,9 @@ const platformDefaults = {
 // Driver's saved custom rate (matches the Details input's default for now)
 let customCommissionRate = 0; 
 
+// Tracks the last selected platform (used to determine if the user changed it)
+let lastSelectedPlatform = "Custom";
+
 // Shows one screen, hides all others
 function showScreen(screenId) {
     // Hide all four screens
@@ -165,6 +168,9 @@ document.getElementById("platformSelect").addEventListener("change", function() 
     // Ignore the blank placeholder option
     if (selectedPlatform === "") return;
 
+    // Remember which platform was last selected (for tracking)
+    lastSelectedPlatform = selectedPlatform;
+
     let rate;
     if (selectedPlatform === "Custom") {
         rate = customCommissionRate;
@@ -309,10 +315,11 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     document.getElementById("netProfitDisplay").textContent = Math.floor(netProfit);
     document.getElementById("profitPerKMDisplay").textContent = profitPerKM;
     showScreen("resultsScreen");
+
     // Track this calculation in Google Analytics
     if (typeof gtag === "function") {
         gtag("event", "calculate_profit", {
-            platform: document.getElementById("platformSelect").value || "Custom"
+            platform: lastSelectedPlatform
         });
     }
 });
