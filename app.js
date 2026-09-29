@@ -99,15 +99,15 @@ function validateDetails(petrolPriceRaw, vehicleEfficiencyRaw, maintenanceRateRa
 // Validates all inputs for the calculation screen
 function validateInputs(petrolPriceRaw, vehicleEfficiencyRaw, maintenanceRateRaw, commissionRateRaw, fareRaw, rideDistanceRaw, deadDistanceRaw) {
     // Validate Petrol Price
-    if (petrolPriceRaw === "") return "Please enter the Petrol Price.";
-    if (Number(petrolPriceRaw) <= 0) return "Please enter a valid Petrol Price.";
+    if (petrolPriceRaw === "") return "Please set up Petrol Price in the Details tab.";
+    if (Number(petrolPriceRaw) <= 0) return "Invalid Petrol Price. Please check the Details tab.";
 
     // Validate Vehicle Efficiency
-    if (vehicleEfficiencyRaw === "") return "Please enter the Vehicle Efficiency.";
-    if (Number(vehicleEfficiencyRaw) <= 0) return "Please enter a valid Vehicle Efficiency.";
+    if (vehicleEfficiencyRaw === "") return "Please set up Vehicle Efficiency in the Details tab.";
+    if (Number(vehicleEfficiencyRaw) <= 0) return "Invalid Vehicle Efficiency. Please check the Details tab.";
 
     // Validate Maintenance Rate
-    if (maintenanceRateRaw !== "" && Number(maintenanceRateRaw) < 0) return "Please enter a valid Maintenance Rate."; 
+    if (maintenanceRateRaw !== "" && Number(maintenanceRateRaw) < 0) return "Invalid Maintenance Rate. Please check the Details tab."; 
 
     // Validate Commission Rate
     if (commissionRateRaw === "") return "Please enter a Commission Rate (0 for no platform).";
@@ -142,16 +142,20 @@ function saveSettingsToStorage() {
 // Loads saved Details values from localStorage (if any)
 function loadSettingsFromStorage() {
     const saved = localStorage.getItem("driverSettings");
-
-    // First-time user: nothing saved yet
     if (saved === null) return;
 
-    const settings = JSON.parse(saved);
-
-    document.getElementById("petrolPrice").value = settings.petrolPrice || "";
-    document.getElementById("vehicleEfficiency").value = settings.vehicleEfficiency || "";
-    document.getElementById("maintenanceRate").value = settings.maintenanceRate || "";
-    document.getElementById("customCommissionInput").value = settings.customCommission || "0";
+    try {
+        const settings = JSON.parse(saved);
+        document.getElementById("petrolPrice").value = settings.petrolPrice || "";
+        document.getElementById("vehicleEfficiency").value = settings.vehicleEfficiency || "";
+        document.getElementById("maintenanceRate").value = settings.maintenanceRate || "";
+        document.getElementById("customCommissionInput").value = settings.customCommission || "0";
+    } catch (error) {
+        // Corrupted data — clear it and behave like a first-time user
+        console.warn("Could not load saved settings:", error);
+        localStorage.removeItem("driverSettings");
+        return;
+    }
 }
 
 // When the platform dropdown changes, update the commission input
@@ -298,7 +302,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     const profitPerKM = profitKMAmount(netProfit, totalDistance);
 
     // Step 7: Display the results in the output fields
-    document.getElementById("netProfitDisplay").textContent = Math.round(netProfit);
+    document.getElementById("netProfitDisplay").textContent = Math.floor(netProfit);
     document.getElementById("profitPerKMDisplay").textContent = profitPerKM;
     showScreen("resultsScreen");
 });

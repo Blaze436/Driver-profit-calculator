@@ -435,3 +435,45 @@ Right now the errors made in Detals Tab only appear after the Calculate Button i
 - **Always save all four fields**, even if some are empty — simpler, uniform handling
 - **Defensive loading** — `|| ""` guards against missing keys in future format changes
 - **Details-only persistence** — Calculate's commission input is still session-only by design (last-used value, resets on reload)
+
+## Day 12 — Full Manual Test Pass
+**Date:** 29 September 2026
+**Time spent:** ~2.5 hours
+
+### What I did
+- Applied `try...catch` around `JSON.parse` in `loadSettingsFromStorage()` — corrupted data now logs a warning instead of crashing the script
+- Changed `Math.round` → `Math.floor` for net profit display, matching MVP_MUST.md's "always round down" spec
+- Built a 6-scenario test table with hand-calculated expected outputs (via Desmos regression for speed)
+- Ran every scenario through the real app and compared to hand calculations — all 6 matched:
+  - Karachi/inDrive: 500 / 25
+  - Yango: 502 / 25 (floor applied)
+  - Bykea: 400 / 20
+  - Custom 12%: 480 / 24
+  - Very short ride (0.25 km): 123 / 492
+  - Unprofitable ride: -240 / -14 (negative floor)
+- Tested first-time user path: tap + before visiting Details
+- Tested corrupted storage recovery
+- Tested empty maintenance persistence
+- Fixed cross-screen error messages to point users to the Details tab
+
+### What worked
+- The bundled localStorage object saved and loaded cleanly across reloads
+- `try...catch` correctly handled corrupted JSON without crashing
+- `|| ""` fallback kept empty maintenance as empty (not "0" or "undefined")
+- Order of operations at page load (load settings → sync commission) remained correct
+
+### What I learned
+- **Hand calculation before testing is essential** — otherwise "it looks right" replaces real verification
+- **Desmos can be used as a calculation engine** for multiple scenarios — a good trick for future testing
+- **`Math.floor` on negatives rounds away from zero** (-13.333 → -14). Acceptable for our use case since any negative is "losing money" anyway.
+- **`try...catch` is the standard pattern** for any code that parses external data (JSON, files, network responses)
+- **Cross-screen validation errors are a real UX problem** — the fix is to include location hints in error messages
+
+### Edge case discovered (not a bug)
+- **Very short rides inflate Profit/KM.** Scenario 5 (0.25 km) showed "492 PKR/km" from a 123 PKR total profit. Mathematically correct but misleading, because fare has a fixed-minimum component that doesn't scale with distance.
+- **Decision:** Leave as-is for MVP. The driver sees both numbers and can interpret them. Post-MVP might hide Profit/KM for rides under 1 km or add a "high due to short ride" label.
+
+### Design decisions locked in
+- **Rounding is always down** (`Math.floor` for both net profit and profit/KM) — conservative choice, honest for a profit calculator
+- **Cross-screen error messages point to Details tab** — saves the driver from hunting for the missing field
+- **Corrupted storage fails safe** — behaves like first-time user, no crash
