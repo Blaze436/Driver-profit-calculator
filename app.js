@@ -228,6 +228,10 @@ document.getElementById("saveDetailsBtn").addEventListener("click", function() {
     messageEl.style.display = "block";
     messageEl.scrollIntoView({ behavior: "smooth", block: "center" });
     saveSettingsToStorage(); // Save to localStorage
+    // Track that a user saved their details
+    if (typeof gtag === "function") {
+        gtag("event", "save_details");
+    }
 });
 
 // Hide the save message when the user starts editing any Details field
@@ -305,6 +309,12 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     document.getElementById("netProfitDisplay").textContent = Math.floor(netProfit);
     document.getElementById("profitPerKMDisplay").textContent = profitPerKM;
     showScreen("resultsScreen");
+    // Track this calculation in Google Analytics
+    if (typeof gtag === "function") {
+        gtag("event", "calculate_profit", {
+            platform: document.getElementById("platformSelect").value || "Custom"
+        });
+    }
 });
 
 // On page load: restore saved settings first, then sync the commission input
