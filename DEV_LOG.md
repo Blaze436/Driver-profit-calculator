@@ -477,3 +477,51 @@ Right now the errors made in Detals Tab only appear after the Calculate Button i
 - **Rounding is always down** (`Math.floor` for both net profit and profit/KM) — conservative choice, honest for a profit calculator
 - **Cross-screen error messages point to Details tab** — saves the driver from hunting for the missing field
 - **Corrupted storage fails safe** — behaves like first-time user, no crash
+
+## Day 13 — Deploy Day & Google Analytics
+**Date:** 29 September 2026
+**Time spent:** ~3 hours
+
+### What I did
+- Made the GitHub repository public (required for free GitHub Pages)
+- Enabled GitHub Pages from Settings → Pages → main branch → root folder
+- Received the live URL: https://blaze436.github.io/Driver-profit-calculator/
+- Tested the live site on laptop and phone (both WiFi and mobile data)
+- Verified the live site behaves identically to the local version (all calculations correct, persistence works, all four screens navigate properly)
+- Set up Google Analytics 4 as a new property
+- Added the GA4 tracking script to `index.html` in the `<head>`
+- Added two event tracking calls to `app.js`:
+  - `calculate_profit` (fires in the Calculate button handler)
+  - `save_details` (fires in the Save Details handler)
+- Registered a Custom Dimension in GA4 for the `platform` event parameter
+- Verified tracking works via GA4 Realtime report
+- Fixed a platform tracking bug: every calculation was logging as `platform: "Custom"` because the dropdown resets to `""` after each selection
+  - Added a `lastSelectedPlatform` variable to remember the last choice
+  - Updated the dropdown handler to set it
+  - Updated the gtag call to use it instead of reading the (already-reset) dropdown value
+- Sent the feedback request to my brother and will send to more testers shortly
+
+### What worked
+- GitHub Pages deployment was a one-click process once the repo was public — no build step, no config, just worked
+- The live URL works over mobile data (not just WiFi), which is what a driver will actually use
+- GA4 Realtime showed events within 30 seconds of firing
+- The `platform` dimension fix was a two-line change
+
+### What I learned
+- **GitHub Pages only works on public repos for free accounts** — the "private repo" upgrade prompt is why it initially looked like a paid feature
+- **GA4's setup form has an `https://` prefix built into the field** — typing the full URL again creates `https://https://...` and triggers a validation error
+- **Brave Browser blocks Google Analytics by default** (and most trackers) — the shield icon in the address bar toggles per-site blocking. Had to disable it for my own site to see the events come through
+- **GA4 Realtime only shows the last 30 minutes of activity** — historical reports take 24–48 hours to populate
+- **Custom event parameters need a "Custom Dimension" registered** before they show up in GA4 reports — otherwise they're just stored, not displayed
+- **Fire-and-forget dropdowns reset the selected value to blank** — good for UX (allows re-selection) but breaks anything that reads the dropdown later. Solution: save the last-selected value in a separate variable
+
+### What confused me
+- Briefly thought GA4 wasn't working — turned out Brave was blocking the tracking script on my own browser
+- The URL validation error on GA4 setup (double `https://`)
+
+### Real-world metrics so far
+- Live URL deployed and publicly accessible
+- Total unique visitors to the live site: ~5 (including my own tests)
+- Total `calculate_profit` events: 3
+- Total `save_details` events: 0 (all testers so far have been me)
+- Real user testing: starting now — feedback message sent to my brother
