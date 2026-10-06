@@ -206,11 +206,11 @@ document.getElementById("customCommissionInput").addEventListener("input", funct
     // Valid: hide error, update variable
     errorEl.style.display = "none";
     customCommissionRate = value;
+});
 
-    // If the user types directly in the Calculate-screen commission field, log as Custom
-    document.getElementById("commissionRate").addEventListener("input", function() {
-        lastSelectedPlatform = "Custom";
-    });
+// If the user types directly in the Calculate-screen commission field, log as Custom
+document.getElementById("commissionRate").addEventListener("input", function() {
+    lastSelectedPlatform = "Custom";
 });
 
 // When the user clicks "Save Details", validate and show a message
