@@ -13,6 +13,7 @@ Base URL: `https://blaze436.github.io/Driver-profit-calculator/`
 | WhatsApp direct message | `https://blaze436.github.io/Driver-profit-calculator/?utm_source=whatsapp&utm_medium=dm&utm_campaign=launch` |
 | YouTube Shorts | `https://blaze436.github.io/Driver-profit-calculator/?utm_source=youtube&utm_medium=short&utm_campaign=launch` |
 | Direct (no tracking) | `https://blaze436.github.io/Driver-profit-calculator/` |
+| In-app share button | `?utm_source=whatsapp&utm_medium=share_button&utm_campaign=in_app` |
 
 ## Rules
 - `utm_source` = platform (tiktok, facebook, whatsapp, youtube)

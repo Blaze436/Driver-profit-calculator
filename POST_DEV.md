@@ -16,7 +16,8 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 - ⏳ Distribution campaign in progress (7-day plan)
 - ⏳ User feedback collection starting
 
-**Users so far:** ~3 real users (mostly me + brother)
+**Unique users in GA4:** ~3 (includes my testing and my brother)
+**External drivers:** 0
 **Calculations logged:** ~10
 **Saves logged:** ~5
 
@@ -50,16 +51,9 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 
 ---
 
-## UTM Links (to create in Day 2)
+## UTM Links
 
-Base URL: `https://blaze436.github.io/Driver-profit-calculator/`
-
-| Channel | URL |
-|---------|-----|
-| TikTok | `?utm_source=tiktok&utm_medium=video` |
-| Facebook Groups | `?utm_source=facebook&utm_medium=group_post` |
-| WhatsApp | `?utm_source=whatsapp&utm_medium=share` |
-| Direct | `?utm_source=direct` |
+See `utm_links.md`.
 
 ---
 
@@ -81,8 +75,8 @@ Base URL: `https://blaze436.github.io/Driver-profit-calculator/`
 
 ### Day 1 — Oct 6
 - Moved commission input listener to top-level
-- Fixed Platform tracking bug
-- Created `POST_DEV.d`
+- Fixed Platform tracking bug: When user typed over a preset, the platform was still logged as the preset
+- Created `POST_DEV.md`
 
 ### Day 2 — Oct 7
 - Wrote all 9 field hints and 11 FAQ entries in `texts_en.md`
