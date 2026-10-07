@@ -12,7 +12,7 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 
 - ✅ Deployed and publicly accessible
 - ✅ Google Analytics 4 tracking `calculate_profit` and `save_details` events
-- ✅ Platform tracking fixed (dropdown reset bug resolved)
+- ✅ Platform tracking fixed (typed over a preset now logs the actual platform)
 - ⏳ Distribution campaign in progress (7-day plan)
 - ⏳ User feedback collection starting
 
@@ -33,7 +33,7 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 | 2 | Oct 7 | Write hints + FAQ, create UTM links, request to join groups | ✅ |
 | 3 | Oct 8 | Build hints + English FAQ, start daily commenting | ⏳ |
 | 4 | Oct 9 | Urdu FAQ + bilingual hints + Help link | ⏳ |
-| 5 | Oct 10 | WhatsApp share button, write 2 video scripts | ⏳ |
+| 5 | Oct 10 | Build the shared link from the page address with existing UTM tags stripped; add WhatsApp share button and write 2 video scripts | ⏳ |
 | 6 | Oct 11 | Record and edit videos | ⏳ |
 | 7 | Oct 12 | Launch — post videos, group posts, first DMs | ⏳ |
 
@@ -47,6 +47,8 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 - Join groups on Day 2 so approvals arrive in time
 - Comment before posting — build trust, don't spam
 - One UTM link per channel to measure attribution
+- Use `share_button` as the UTM medium and `in_app` as the UTM campaign for the share-button row
+- Build shared links from the page address with any existing UTM tags stripped so shares do not inherit the sharer's tags
 - WhatsApp is for sharing, not cold discovery
 
 ---

@@ -69,4 +69,4 @@ Then Profit per KM = Net Profit ÷ Total Distance.
 Being conservative. If the actual value is 25.9 PKR/km, the app shows 25. This avoids showing more profit than you actually made.
 
 **Is my data private?**
-Your settings (petrol price, efficiency, commission, maintenance) stay on your device. Nothing is sent to any server. However, anonymous usage data — like how many times the app is opened and which platform was picked — is collected through Google Analytics to help improve the app. No fares, distances, or settings are ever sent.
+Your settings stay on your device and are never uploaded. The app sends anonymous usage data (like which platform was picked, approximate location and device type) to Google Analytics. No fares, distances or settings are sent.
