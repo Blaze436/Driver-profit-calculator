@@ -1,6 +1,6 @@
 # Driver Profit Calculator — Post-Development
 
-The MVP is shipped. This file tracks what happens after launch — distribution, feedback, iteration, and future work.
+The MVP is shipped. This file tracks what happens after launch, including distribution, feedback, iteration, and future work.
 
 **Live URL:** https://blaze436.github.io/Driver-profit-calculator/
 **Repo:** https://github.com/Blaze436/Driver-profit-calculator
@@ -8,7 +8,7 @@ The MVP is shipped. This file tracks what happens after launch — distribution,
 
 ---
 
-## Current Status (as of 6 October 2026)
+## Current Status (as of 7 October 2026)
 
 - ✅ Deployed and publicly accessible
 - ✅ Google Analytics 4 tracking `calculate_profit` and `save_details` events
@@ -29,7 +29,7 @@ The MVP is shipped. This file tracks what happens after launch — distribution,
 | Day | Date | Task | Status |
 |-----|------|------|--------|
 | 1 | Oct 6 | Fix analytics, register custom dimension | ✅ |
-| 2 | Oct 7 | Write hints + FAQ, create UTM links, request to join groups | ⏳ |
+| 2 | Oct 7 | Write hints + FAQ, create UTM links, request to join groups | ✅ |
 | 3 | Oct 8 | Build hints + English FAQ, start daily commenting | ⏳ |
 | 4 | Oct 9 | Urdu FAQ + bilingual hints + Help link | ⏳ |
 | 5 | Oct 10 | WhatsApp share button, write 2 video scripts | ⏳ |
@@ -42,7 +42,7 @@ The MVP is shipped. This file tracks what happens after launch — distribution,
 - WhatsApp Status + personal shares
 - Direct messages to drivers who asked questions
 
-**Rules (from Architect):**
+**Rules:**
 - Join groups on Day 2 so approvals arrive in time
 - Comment before posting — build trust, don't spam
 - One UTM link per channel to measure attribution
@@ -67,7 +67,7 @@ Base URL: `https://blaze436.github.io/Driver-profit-calculator/`
 
 | Date | Person | Role | Channel | Feedback |
 |------|--------|------|---------|----------|
-| 29 Sep | Brother | inDrive/Yango driver | WhatsApp | Pending |
+| 29 Sep | Brother | inDrive/Yango driver | WhatsApp | Great, but a bit hard to understand at first |
 | | | | | |
 
 **Feedback to ask for:**
@@ -77,13 +77,19 @@ Base URL: `https://blaze436.github.io/Driver-profit-calculator/`
 
 ---
 
-## Iteration Log
+## Distribution Session Log
 
-Changes made after launch based on feedback or testing.
+### Day 1 — Oct 6
+- Moved commission input listener to top-level
+- Fixed Platform tracking bug
+- Created `POST_DEV.d`
 
-| Date | Change | Reason | Commit |
-|------|--------|--------|--------|
-| 6 Oct | Moved commission input listener to top-level | Platform tracking bug — user typing over preset still logged as preset | `fix: move commission input listener to top-level` |
+### Day 2 — Oct 7
+- Wrote all 9 field hints and 11 FAQ entries in `texts_en.md`
+- Created `utm_links.md` with 7 channel-specific links
+- Verified UTM tracking works via GA4 DebugView
+- Sent join requests to multiple Facebook driver groups
+- Archived the old "Platform" custom dimension (replaced by "Ride Platform")
 
 ---
 
@@ -130,7 +136,7 @@ Direct quotes are gold for college applications. Collect them as they come.
 
 > *(placeholder — add as testers respond)*
 
-**Ask permission before quoting.** A one-line note like "Can I quote you in my college app?" is enough.
+**Ask permission before quoting.** A one-line note like "Can I quote you in my college app?" should be enough.
 
 ---
 
@@ -171,4 +177,4 @@ This project is considered done when:
 - [ ] All obvious bugs fixed
 - [ ] Portfolio artifacts compiled
 
-Then move to maintenance mode and begin the Study Planner full-time.
+Then move to maintenance mode.
