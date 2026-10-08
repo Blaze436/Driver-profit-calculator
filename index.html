@@ -21,31 +21,89 @@
         <div class="mb-4">
             <label for="petrolPrice" class="block text-base text-neutral-300 mb-2">Petrol Price (PKR/L)</label>
             <input type="number" id="petrolPrice" placeholder="e.g. 300" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+            <p class="text-sm text-neutral-400 mt-1">Current petrol price per litre in rupees.</p>
         </div>
         <div class="mb-4">
             <label for="vehicleEfficiency" class="block text-base text-neutral-300 mb-2">Vehicle Efficiency (KM/L):</label>
             <input type="number" id="vehicleEfficiency" placeholder="e.g. 20" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+            <p class="text-sm text-neutral-400 mt-1">How many kilometers your vehicle travels on 1 liter of petrol.</p>
         </div>
         <div class="mb-4">
             <label for="customCommissionInput" class="block text-base text-neutral-300 mb-2">My Custom Commission Rate (%):</label>
             <input type="number" id="customCommissionInput" placeholder="e.g. 10" value="0" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+            <p class="text-sm text-neutral-400 mt-1">Used when you pick "Custom" in the Platform box.</p>
         </div>
         <p id="customCommissionError" style="display: none;" class="text-base mt-2 text-red-400"></p>
         <div class="mb-4">
             <label for="maintenanceRate" class="block text-base text-neutral-300 mb-2">Maintenance Rate (PKR/KM):</label>
             <input type="number" id="maintenanceRate" placeholder="e.g. 2.5 (optional)" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+            <p class="text-sm text-neutral-400 mt-1">Optional. Estimated wear-and-tear cost per km.</p>
         </div>
         <button id="saveDetailsBtn" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg mt-6 active:scale-95 transition-transform">Save Details</button>
         <p id="detailsSaveMessage" style="display: none;" class="mt-4 text-center py-3 px-4 rounded-lg"></p>
     </div>
 
     <div id="settingsScreen" class="min-h-screen p-6 pb-24" style="display: none;">
+
         <h2 class="text-3xl font-bold mb-6">Settings</h2>
 
-        <div class="bg-neutral-800 rounded-xl p-6 text-center">
-            <p class="text-4xl mb-3">⚙</p>
-            <p class="text-neutral-300">Nothing here yet.</p>
-            <p class="text-base text-neutral-400 mt-2">Future settings will live here.</p>
+        <h3 class="text-xl font-semibold mb-4">FAQ</h3>
+
+        <div class="space-y-2">
+            <details class="bg-neutral-800 rounded-lg p-4">
+                <summary class="font-medium cursor-pointer">Why is Petrol Price empty?</summary>
+                <p class="mt-3 text-neutral-300">Petrol prices fluctuate regularly, so the app requires you to enter and update it yourself. Updating every week is ideal.</p>
+            </details>
+
+            <details class="bg-neutral-800 rounded-lg p-4">
+                <summary class="font-medium cursor-pointer">What does Save Details do?</summary>
+                <p class="mt-3 text-neutral-300">It saves your Petrol Price, Vehicle Efficiency, Custom Commission, and Maintenance rate in your browser, so you don't have to enter them again. They'll be lost if you clear your browser's site data.</p>
+            </details>
+
+            <details class="bg-neutral-800 rounded-lg p-4">
+                <summary class="font-medium cursor-pointer">Is my data private?</summary>
+                <p class="mt-3 text-neutral-300">Your settings are never uploaded — they stay on your device. Anonymous usage data (like how often the app is opened and which platform was picked) is collected through Google Analytics. No fares, distances, or settings are sent.</p>
+            </details>
+
+            <details class="bg-neutral-800 rounded-lg p-4">
+                <summary class="font-medium cursor-pointer">What is dead distance?</summary>
+                <p class="mt-3 text-neutral-300">The km you drive to reach the passenger before the ride starts. If the app shows the passenger is 3 km away, that's 3 km of dead distance. You burn petrol but don't earn fare for it.</p>
+            </details>
+
+            <details class="bg-neutral-800 rounded-lg p-4">
+                <summary class="font-medium cursor-pointer">What is vehicle efficiency?</summary>
+                <p class="mt-3 text-neutral-300">Also known as mileage or average: how many km your vehicle travels on 1 liter of petrol. Best way to find yours: fill the tank, reset your trip meter, drive normally, then refill and divide km driven by liters added.</p>
+            </details>
+
+            <details class="bg-neutral-800 rounded-lg p-4">
+                <summary class="font-medium cursor-pointer">What is Custom Commission?</summary>
+                <p class="mt-3 text-neutral-300">Your self-entered commission rate. It's used when you pick "Custom" in the Platform dropdown. Set it once in the Details tab.</p>
+            </details>
+
+            <details class="bg-neutral-800 rounded-lg p-4">
+                <summary class="font-medium cursor-pointer">What number should I use for maintenance?</summary>
+                <p class="mt-3 text-neutral-300">Optional. A rough estimate of wear-and-tear per km: tyres, oil, chain, small repairs. Estimate it as: your monthly maintenance spend ÷ your monthly kilometers driven. If unsure, leave it empty.</p>
+            </details>
+
+            <details class="bg-neutral-800 rounded-lg p-4">
+                <summary class="font-medium cursor-pointer">Where do the commission rates come from?</summary>
+                <p class="mt-3 text-neutral-300">inDrive: 10% (varies by city, 8–12%). Yango: 9.71% (uniform nationally). Bykea: 20% (approximate, no official source). You can override any of these if your actual rate differs.</p>
+            </details>
+
+            <details class="bg-neutral-800 rounded-lg p-4">
+                <summary class="font-medium cursor-pointer">Is there sales tax?</summary>
+                <p class="mt-3 text-neutral-300">The app assumes 5% sales tax on the fare. Rates can differ or change by province. Calculated on the full fare.</p>
+            </details>
+
+            <details class="bg-neutral-800 rounded-lg p-4">
+                <summary class="font-medium cursor-pointer">How is profit calculated?</summary>
+                <p class="mt-3 text-neutral-300">Fare − Petrol cost − Platform commission − Sales tax − Maintenance = Net Profit. Then Profit per KM = Net Profit ÷ Total Distance.</p>
+            </details>
+
+            <details class="bg-neutral-800 rounded-lg p-4">
+                <summary class="font-medium cursor-pointer">Why does profit per KM round down?</summary>
+                <p class="mt-3 text-neutral-300">Being conservative. If the actual value is 25.9 PKR/km, the app shows 25. This avoids showing more profit than you actually made.</p>
+            </details>
         </div>
     </div>
 
@@ -57,14 +115,17 @@
         <div class="mb-4">
             <label for="fare" class="block text-base text-neutral-300 mb-2">Fare (PKR)</label>
             <input type="number" id="fare" placeholder="e.g. 1000" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+            <p class="text-sm text-neutral-400 mt-1">Total amount the passenger pays.</p>
         </div>
         <div class="mb-4">
             <label for="rideDistance" class="block text-base text-neutral-300 mb-2">Ride Distance (KM)</label>
             <input type="number" id="rideDistance" placeholder="e.g. 18" step="0.001" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+            <p class="text-sm text-neutral-400 mt-1">Pickup to dropoff in km. Decimals allowed (0.25 = 250m).</p>
         </div>
         <div class="mb-4">
             <label for="deadDistance" class="block text-base text-neutral-300 mb-2">Dead Distance (KM)</label>
             <input type="number" id="deadDistance" value="0" step="0.001" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+            <p class="text-sm text-neutral-400 mt-1">Distance to pickup. Defaults to 0 if you're already there.</p>
         </div>
         <div class="mb-4">
             <label for="platformSelect" class="block text-base text-neutral-300 mb-2">Platform</label>
@@ -75,10 +136,12 @@
                 <option value="Bykea">Bykea (20%)</option>
                 <option value="Custom">Custom</option>
             </select>
+            <p class="text-sm text-neutral-400 mt-1">Selecting one auto-fills the rate below. The box then resets — this is normal.</p>
         </div>
         <div class="mb-4">
             <label for="commissionRate" class="block text-base text-neutral-300 mb-2">Commission Rate (%)</label>
             <input type="number" id="commissionRate" placeholder="e.g. 10" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500">
+            <p class="text-sm text-neutral-400 mt-1">Auto-filled when you pick a platform. You can edit it.</p>
         </div>
         <p id="errorDisplay" style="display: none;" class="text-red-400 text-base mt-2 mb-4"></p>
         <button id="calculateButton" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg mt-6 active:scale-95 transition-transform">Calculate Profit</button>
