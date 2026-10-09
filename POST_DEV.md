@@ -104,6 +104,13 @@ See `utm_links.md`.
 - Commented and engaged in larger groups to build credibility before launch (no links, no app mentions)
 - Verified all FAQ entries on phone: no sideways scrolling, native expand/collapse works cleanly
 
+### Day 4 — Oct 9
+- Added ⓘ toggle buttons next to every field label (Details and Calculate)
+- Hints hidden by default; tap ⓘ to reveal English + Urdu simultaneously
+- Built Urdu FAQ section in Settings with `lang="ur" dir="rtl"` — all 11 entries translated
+- Decision: skipped Help link on Calculate screen — Settings is one tap away via bottom nav
+- Completed Urdu text file (`texts_ur.md`) as source of truth for future translations
+
 ---
 
 ## Group Status Snapshot (Oct 8)
