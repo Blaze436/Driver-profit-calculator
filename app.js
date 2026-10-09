@@ -24,6 +24,15 @@ function showScreen(screenId) {
     document.getElementById(screenId).style.display = "block";
 }
 
+// Toggle hints on ⓘ click
+document.querySelectorAll(".hint-toggle").forEach(function(button) {
+    button.addEventListener("click", function() {
+        const targetId = this.dataset.target;
+        const hint = document.getElementById(targetId);
+        if (hint) hint.classList.toggle("hidden");
+    });
+});
+
 document.getElementById("navDetails").addEventListener("click", function() {
     showScreen("detailsScreen");
 });

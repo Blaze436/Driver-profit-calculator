@@ -18,5 +18,5 @@ Base URL: `https://blaze436.github.io/Driver-profit-calculator/`
 ## Rules
 - `utm_source` = platform (tiktok, facebook, whatsapp, youtube)
 - `utm_medium` = content type (video, group_post, dm, status, short)
-- `utm_campaign` = launch (same for all, since this is one campaign)
+- `utm_campaign` = `launch` for external channels, `in_app` for the share button
 - Always lowercase. `TikTok` and `tiktok` count as different sources in GA4.
