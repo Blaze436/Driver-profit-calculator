@@ -70,3 +70,6 @@ Being conservative. If the actual value is 25.9 PKR/km, the app shows 25. This a
 
 **Is my data private?**
 Your settings stay on your device and are never uploaded. The app sends anonymous usage data (like which platform was picked, approximate location, and device type) to Google Analytics. No fares, distances, or settings are sent.
+
+**Opened this from Facebook?**
+Facebook's in-app browser uses separate storage from Chrome or Safari. If you tap ⋮ (top-right) → "Open in browser" while you're inside Facebook, your saved Details will be there next time.

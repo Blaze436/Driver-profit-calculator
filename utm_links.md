@@ -14,9 +14,11 @@ Base URL: `https://blaze436.github.io/Driver-profit-calculator/`
 | YouTube Shorts | `https://blaze436.github.io/Driver-profit-calculator/?utm_source=youtube&utm_medium=short&utm_campaign=launch` |
 | Direct (no tracking) | `https://blaze436.github.io/Driver-profit-calculator/` |
 | In-app share button | `?utm_source=whatsapp&utm_medium=share_button&utm_campaign=in_app` |
+| In-app share — native | `?utm_source=app_share&utm_medium=native_share&utm_campaign=in_app` |
+| In-app share — WhatsApp fallback | `?utm_source=whatsapp&utm_medium=share_button&utm_campaign=in_app` |
 
 ## Rules
-- `utm_source` = platform (tiktok, facebook, whatsapp, youtube)
-- `utm_medium` = content type (video, group_post, dm, status, short)
-- `utm_campaign` = `launch` for external channels, `in_app` for the share button
+- `utm_source` = platform (tiktok, facebook, whatsapp, youtube, app_share)
+- `utm_medium` = content type (video, group_post, dm, status, short, native_share, share_button)
+- `utm_campaign` = `launch` for external channels, `in_app` for all in-app share variants
 - Always lowercase. `TikTok` and `tiktok` count as different sources in GA4.

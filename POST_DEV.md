@@ -35,8 +35,8 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 | 1 | Oct 6 | Fix analytics, register custom dimension | ✅ |
 | 2 | Oct 7 | Write hints + FAQ, create UTM links, request to join groups | ✅ |
 | 3 | Oct 8 | Build hints + English FAQ, start daily commenting | ✅ |
-| 4 | Oct 9 | Urdu FAQ + bilingual hints + Help link | ⏳ |
-| 5 | Oct 10 | Build share button, write 2 video scripts | ⏳ |
+| 4 | Oct 9 | Urdu FAQ + bilingual hints + Help link | ✅ |
+| 5 | Oct 10 | Build share button, write 2 video scripts | ✅ |
 | 6 | Oct 11 | Record and edit videos | ⏳ |
 | 7 | Oct 12 | Launch — post videos, group posts, first DMs | ⏳ |
 
@@ -110,6 +110,17 @@ See `utm_links.md`.
 - Built Urdu FAQ section in Settings with `lang="ur" dir="rtl"` — all 11 entries translated
 - Decision: skipped Help link on Calculate screen — Settings is one tap away via bottom nav
 - Completed Urdu text file (`texts_ur.md`) as source of truth for future translations
+
+### Day 5 — Oct 10
+- Facebook in-app browser uses separate storage from Chrome/Safari (documented, unverified on-device due to phone being out of service). Added a note to the FAQ and will add it to the launch post. Low-frequency edge case; recovery is one-time refill.
+- Built the Share button on Results screen (native share + WhatsApp fallback)
+- Share strips any `utm_` tags from the page URL before generating a fresh link
+- Fires `share_click` event with `share_method` parameter
+- Wrote two 30-second video scripts (saved in `video_scripts.md`)
+- Renamed Settings tab to Help
+- Hint ⓘ buttons: 44px tap target, hover/active background
+- Urdu Dead Distance phrasing clarified
+- Facebook in-app browser edge case documented in the FAQ
 
 ---
 

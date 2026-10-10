@@ -338,6 +338,50 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     }
 });
 
+// Share button handler — on the Results screen
+document.getElementById("shareBtn").addEventListener("click", async function() {
+
+    // 1. Build a clean URL — strip any existing UTM tags
+    const url = new URL(window.location.href);
+    [...url.searchParams.keys()].forEach(function(key) {
+        if (key.startsWith("utm_")) url.searchParams.delete(key);
+    });
+    const baseUrl = url.origin + url.pathname;
+
+    // 2. Build the two possible share URLs
+    const nativeShareUrl = baseUrl + "?utm_source=app_share&utm_medium=native_share&utm_campaign=in_app";
+    const waShareUrl     = baseUrl + "?utm_source=whatsapp&utm_medium=share_button&utm_campaign=in_app";
+
+    // 3. Message text (English + Urdu)
+    const message = "A simple, free tool to estimate your profit per ride after petrol, commission, and maintenance.\n\nایک سادہ اور مفت کیلکولیٹر، جس سے آپ پٹرول، کمیشن اور مرمت کا خرچ نکال کر فی سواری اپنا منافع معلوم کر سکتے ہیں۔";
+
+    // 4. Try native share first
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: "Driver Profit Calculator",
+                text: message,
+                url: nativeShareUrl
+            });
+            if (typeof gtag === "function") {
+                gtag("event", "share_click", { share_method: "native" });
+            }
+        } catch (err) {
+            // User cancelled — that's fine, don't log
+            if (err.name !== "AbortError") {
+                console.error("Share failed:", err);
+            }
+        }
+    } else {
+        // 5. Fallback to WhatsApp web/app
+        const waUrl = "https://wa.me/?text=" + encodeURIComponent(message + "\n\n" + waShareUrl);
+        window.open(waUrl, "_blank");
+        if (typeof gtag === "function") {
+            gtag("event", "share_click", { share_method: "wa_fallback" });
+        }
+    }
+});
+
 // On page load: restore saved settings first, then sync the commission input
 loadSettingsFromStorage();
 customCommissionRate = Number(document.getElementById("customCommissionInput").value);
