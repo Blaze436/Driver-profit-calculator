@@ -8,7 +8,7 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 
 ---
 
-## Current Status (as of 8 October 2026)
+## Current Status (as of 11 October 2026)
 
 - ✅ Deployed and publicly accessible
 - ✅ Google Analytics 4 tracking `calculate_profit` and `save_details` events
@@ -37,7 +37,7 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 | 3 | Oct 8 | Build hints + English FAQ, start daily commenting | ✅ |
 | 4 | Oct 9 | Urdu FAQ + bilingual hints + Help link | ✅ |
 | 5 | Oct 10 | Build share button, write 2 video scripts | ✅ |
-| 6 | Oct 11 | Record and edit videos | ⏳ |
+| 6 | Oct 11 | Record and edit videos | ✅ |
 | 7 | Oct 12 | Launch — post videos, group posts, first DMs | ⏳ |
 
 **Channels:**
@@ -120,6 +120,17 @@ See `utm_links.md`.
 - Hint ⓘ buttons: 44px tap target, hover/active background
 - Urdu Dead Distance phrasing clarified
 - Facebook in-app browser edge case documented in the FAQ
+
+### Day 6 — Oct 11
+- Added favicon (yellow taxi) — loads in browser tab
+- Built feedback form (Google Form) — linked from Settings with `feedback_click` GA4 event
+- Wrote Facebook in-app browser banner (one-time dismissible, keyed on `fbBannerDismissed` in localStorage)
+- **Admin outreach:** Messaged admins of top 5 launch groups with a personalized Urdu pitch. Noted that admins may require approval before links are posted. Logged initial response — one group approved, others pending.
+- Wrote `docs/image_posts.md` with two image-post drafts (carousel structure for FB groups, standalone for WhatsApp Status)
+- Added share-message bidi fix (Urdu + English on separate lines)
+- **GA4 Reports Snapshot:** customized with 4 cards (Overview, Event count, First user source/medium, Town/City)
+- **GA4 Exploration:** "Platform breakdown" saved — shows Bykea/inDrive/Custom/Yango split for `calculate_profit` events
+- Ride platform card in Reports snapshot: not yet available (GA4 propagation delay, expected 24-48h)
 
 ---
 

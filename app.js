@@ -392,3 +392,48 @@ document.getElementById("shareBtn").addEventListener("click", async function() {
 loadSettingsFromStorage();
 customCommissionRate = Number(document.getElementById("customCommissionInput").value);
 document.getElementById("commissionRate").value = customCommissionRate;
+
+// --- Facebook in-app browser banner (one-time dismissible) ---
+(function showFacebookBannerIfNeeded() {
+    const ua = navigator.userAgent;
+    const isFacebookBrowser = /FBAN|FBAV/i.test(ua);
+    if (!isFacebookBrowser) return;
+
+    if (localStorage.getItem("fbBannerDismissed") === "true") return;
+
+    const banner = document.createElement("div");
+    banner.style.cssText = [
+        "position: fixed",
+        "top: 0", "left: 0", "right: 0",
+        "background: #1e40af",
+        "color: white",
+        "padding: 12px 16px",
+        "z-index: 9999",
+        "font-size: 14px",
+        "display: flex",
+        "align-items: center",
+        "justify-content: space-between",
+        "gap: 12px",
+        "box-shadow: 0 2px 8px rgba(0,0,0,0.4)"
+    ].join(";");
+
+    const text = document.createElement("span");
+    text.textContent = "Tap ⋮ → Open in browser so your saved details stay.";
+    banner.appendChild(text);
+
+    const closeBtn = document.createElement("button");
+    closeBtn.textContent = "✕";
+    closeBtn.style.cssText = "background: none; border: none; color: white; font-size: 18px; cursor: pointer; padding: 4px 8px;";
+    closeBtn.addEventListener("click", function() {
+        banner.remove();
+        localStorage.setItem("fbBannerDismissed", "true");
+    });
+    banner.appendChild(closeBtn);
+
+    document.body.appendChild(banner);
+})();
+
+// In app.js, wire the feedback link
+document.getElementById("feedbackLink").addEventListener("click", function() {
+    if (typeof gtag === "function") gtag("event", "feedback_click");
+});
