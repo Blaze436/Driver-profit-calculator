@@ -100,7 +100,7 @@ See `utm_links.md`.
   - **Karachi-focused:** indriver karachi, Karachi yango indrive, Yango Drivers Karachi Group, InDrive Pakistan Support
   - **Lahore-focused:** Indrive Lahore unity, InDriver Lahore
   - **Islamabad-focused:** Indriver & Yango Islamabad & Rwp
-  - **Pakistan-wide:** inDrive Pakistan, Indriver Drivers and Partners, Yango Driver Pakistan, Online Drivers Pakistan, InDrive Drivers Pakistan, Indriver Unity Pakistan, InDrive Drivers Community, inDriver Drivers Pakistan, Pakistan Driver Hub, Pakistan indrive-careem-uber-bykea-yango pro, indrive issues and solution, InDrive Pakistan Support, and others
+  - **Pakistan-wide:** inDrive Pakistan, Indriver Drivers and Partners, Yango Driver Pakistan, Online Drivers Pakistan, InDrive Drivers Pakistan, Indriver Unity Pakistan, InDrive Drivers Community, inDriver Drivers Pakistan, Pakistan Driver Hub, Pakistan indrive-careem-uber-bykea-yango pro, indrive issues and solution, and others
 - Commented and engaged in larger groups to build credibility before launch (no links, no app mentions)
 - Verified all FAQ entries on phone: no sideways scrolling, native expand/collapse works cleanly
 
@@ -117,14 +117,13 @@ See `utm_links.md`.
 - Share strips any `utm_` tags from the page URL before generating a fresh link
 - Fires `share_click` event with `share_method` parameter
 - Wrote two 30-second video scripts (saved in `video_scripts.md`)
-- Renamed Settings tab to Help
 - Hint ⓘ buttons: 44px tap target, hover/active background
 - Urdu Dead Distance phrasing clarified
 - Facebook in-app browser edge case documented in the FAQ
 
 ---
 
-## Group Status Snapshot (Oct 8)
+## Group Status Snapshot (Oct 11)
 
 Total groups joined: ~23
 Groups with recent activity (< 30 min): 6+
@@ -145,6 +144,14 @@ Groups with active admin moderation: unknown — check per-post before launch
 - Space posts a few hours apart, not all at once
 - Reply to every comment within the first hour
 - Do not spam the same message across all groups — vary the intro
+
+**Self Promotion Rules:**
+- **inDrive Pakistan** — By Rule 3: No promotion or spam(Note: Try to reach out to admins, since this is a non-profit app in the best interest of drivers themselves. It would be a bummer to to lose the biggest group)
+- **Indriver Drivers and Partners** — Same Rule. Needs approval from admin
+- **Indriver Lahore unity** — No rules mentioned
+- **Yango Driver Pakistan** — No rules mentioned
+- **Pakistan indrive-careem-uber-bykea-yango pro** — Some other groups have rules, while some don't
+- Note: Regardless of these rules there are still posts that self promote in the interest of both themselves and the comunity, which is exactly what we are trying to do so there is no solid barrier. We just need to reach out.
 
 ---
 
