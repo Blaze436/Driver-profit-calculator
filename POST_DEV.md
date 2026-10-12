@@ -132,6 +132,22 @@ See `utm_links.md`.
 - **GA4 Exploration:** "Platform breakdown" saved — shows Bykea/inDrive/Custom/Yango split for `calculate_profit` events
 - Ride platform card in Reports snapshot: not yet available (GA4 propagation delay, expected 24-48h)
 
+### Day 7 — Oct 12 (Launch Day)
+
+Posted launch content across Facebook driver groups. Used the Urdu introduction caption + 3 real screenshots (Details, Calculate, Results showing 393 PKR example).
+
+- **Groups reached:** ~6 total (1 approved + 5 with no rules against links), plus more planned later in the day
+- **Rejected by admin:** 1 group
+- **Still pending admin response:** the rest
+- **WhatsApp Status + personal Facebook:** to be posted end of day
+
+**First-hour results:** A couple of real visitors to the site from the first post. GA4 Realtime confirmed `facebook / group_post` as the source. Expected this to be slow — one post in one group is not a launch, it's the start of a trickle.
+
+**Decisions:**
+- Skipped the two-scenario videos. Instead, will record one 60-second hybrid video (intro + demo + benefits + CTA) with AI Urdu voiceover. Simpler to land, better retention.
+- Video recording deferred to Oct 13. Needed the day to focus on multi-group posting.
+- Carousels (3-image posts) drafted for later posting over the coming weeks.
+
 ---
 
 ## Group Status Snapshot (Oct 11)
