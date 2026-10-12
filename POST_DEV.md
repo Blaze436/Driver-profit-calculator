@@ -37,7 +37,7 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 | 3 | Oct 8 | Build hints + English FAQ, start daily commenting | ✅ |
 | 4 | Oct 9 | Urdu FAQ + bilingual hints + Help link | ✅ |
 | 5 | Oct 10 | Build share button, write 2 video scripts | ✅ |
-| 6 | Oct 11 | Record and edit videos | ✅ |
+| 6 | Oct 11 | Favicon, feedback form, FB banner, admin outreach | ✅ |
 | 7 | Oct 12 | Launch — post videos, group posts, first DMs | ⏳ |
 
 **Channels:**

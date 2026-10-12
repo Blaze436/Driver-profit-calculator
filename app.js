@@ -139,7 +139,7 @@ function validateInputs(petrolPriceRaw, vehicleEfficiencyRaw, maintenanceRateRaw
     return null; // No validation errors
 }
 
-// Saves all four Details values to localStorage as one bundled object
+// Saves the current Details values to localStorage
 function saveSettingsToStorage() {
     const settingsToSave = {
         petrolPrice: document.getElementById("petrolPrice").value,
@@ -148,12 +148,24 @@ function saveSettingsToStorage() {
         customCommission: document.getElementById("customCommissionInput").value
     };
 
-    localStorage.setItem("driverSettings", JSON.stringify(settingsToSave));
+    try {
+        localStorage.setItem("driverSettings", JSON.stringify(settingsToSave));
+        return true;
+    } catch (error) {
+        console.warn("Could not save settings:", error);
+        return false;
+    }
 }
 
-// Loads saved Details values from localStorage (if any)
+// Loads the saved Details values from localStorage (if any) and populates the input fields
 function loadSettingsFromStorage() {
-    const saved = localStorage.getItem("driverSettings");
+    let saved;
+    try {
+        saved = localStorage.getItem("driverSettings");
+    } catch (error) {
+        console.warn("localStorage read failed:", error);
+        return;
+    }
     if (saved === null) return;
 
     try {
@@ -247,7 +259,13 @@ document.getElementById("saveDetailsBtn").addEventListener("click", function() {
     messageEl.style.background =  "rgba(34, 197, 94, 0.15)";
     messageEl.style.display = "block";
     messageEl.scrollIntoView({ behavior: "smooth", block: "center" });
-    saveSettingsToStorage(); // Save to localStorage
+        const saved = saveSettingsToStorage();
+        if (!saved) {
+        messageEl.textContent = "Could not save. Storage may be full or blocked.";
+        messageEl.style.color = "red";
+        messageEl.style.background = "rgba(239, 68, 68, 0.15)";
+        return;
+    }
     // Track that a user saved their details
     if (typeof gtag === "function") {
         gtag("event", "save_details");
@@ -353,7 +371,7 @@ document.getElementById("shareBtn").addEventListener("click", async function() {
   const waShareUrl = baseUrl + "?utm_source=whatsapp&utm_medium=share_button&utm_campaign=in_app";
 
   // 3. Message text (Urdu + English, kept on separate lines with a clear break)
-  const message = "مفت ٹول — پٹرول، کمیشن اور مرمت کا خرچ نکال کر اصل منافع معلوم کریں۔ \n\n Free tool — see your real profit per ride after petrol, commission, and maintenance.";
+  const message = "مفت ٹول — پیٹرول، کمیشن اور مرمت کا خرچ نکال کر اصل منافع معلوم کریں۔ \n\n Free tool — see your real profit per ride after petrol, commission, and maintenance.";
 
   // 4. Try native share first
   if (navigator.share) {
@@ -418,7 +436,7 @@ document.getElementById("commissionRate").value = customCommissionRate;
     ].join(";");
 
     const text = document.createElement("span");
-    text.textContent = "Tap ⋮ → Open in browser so your saved details stay.";
+        text.textContent = "Tap ⋮ → Open in browser so your saved details stay. / سیٹنگز محفوظ رکھنے کے لیے براؤزر میں کھولیں";
     banner.appendChild(text);
 
     const closeBtn = document.createElement("button");
