@@ -8,7 +8,7 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 
 ---
 
-## Current Status (as of 11 October 2026)
+## Current Status (as of 13 October 2026)
 
 - ✅ Deployed and publicly accessible
 - ✅ Google Analytics 4 tracking `calculate_profit` and `save_details` events
@@ -38,7 +38,7 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 | 4 | Oct 9 | Urdu FAQ + bilingual hints + Help link | ✅ |
 | 5 | Oct 10 | Build share button, write 2 video scripts | ✅ |
 | 6 | Oct 11 | Favicon, feedback form, FB banner, admin outreach | ✅ |
-| 7 | Oct 12 | Launch — post videos, group posts, first DMs | ⏳ |
+| 7 | Oct 12 | Launch — 6 groups posted, video deferred | ✅ |
 
 **Channels:**
 - Facebook groups (inDrive, Yango, Bykea drivers)
@@ -147,6 +147,14 @@ Posted launch content across Facebook driver groups. Used the Urdu introduction 
 - Skipped the two-scenario videos. Instead, will record one 60-second hybrid video (intro + demo + benefits + CTA) with AI Urdu voiceover. Simpler to land, better retention.
 - Video recording deferred to Oct 13. Needed the day to focus on multi-group posting.
 - Carousels (3-image posts) drafted for later posting over the coming weeks.
+
+### Day 8 — Oct 13
+- GA4 confirmed the first week: 12 new users, 12 Save Details, 12 Calculate Profit, 1 in-app share (100% conversion from visitor to calculator user)
+- Prior days: ~4 admin visits, ~15 calculations
+- No feedback form submissions yet
+- Launch posts on Oct 12 got buried due to a trending topic ("top up") dominating the group feed
+- Decided: post going forward in the 6-9 PM PKT window and mid-morning
+- Video: recording the 60-second hybrid today
 
 ---
 
