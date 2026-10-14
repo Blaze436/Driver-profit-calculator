@@ -8,7 +8,7 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 
 ---
 
-## Current Status (as of 13 October 2026)
+## Current Status (as of 14 October 2026)
 
 - ✅ Deployed and publicly accessible
 - ✅ Google Analytics 4 tracking `calculate_profit` and `save_details` events
@@ -35,7 +35,7 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 | 1 | Oct 6 | Fix analytics, register custom dimension | ✅ |
 | 2 | Oct 7 | Write hints + FAQ, create UTM links, request to join groups | ✅ |
 | 3 | Oct 8 | Build hints + English FAQ, start daily commenting | ✅ |
-| 4 | Oct 9 | Urdu FAQ + bilingual hints + Help link | ✅ |
+| 4 | Oct 9 | Urdu FAQ + bilingual hints | ✅ |
 | 5 | Oct 10 | Build share button, write 2 video scripts | ✅ |
 | 6 | Oct 11 | Favicon, feedback form, FB banner, admin outreach | ✅ |
 | 7 | Oct 12 | Launch — 6 groups posted, video deferred | ✅ |
@@ -154,7 +154,14 @@ Posted launch content across Facebook driver groups. Used the Urdu introduction 
 - No feedback form submissions yet
 - Launch posts on Oct 12 got buried due to a trending topic ("top up") dominating the group feed
 - Decided: post going forward in the 6-9 PM PKT window and mid-morning
-- Video: recording the 60-second hybrid today
+
+### Day 9 - Oct 14
+- Recorded and edited the 60-second hybrid demo video (silent master, type-in subtitles, blurred title card, arrows on key moments).
+- Removed BGM so the master stays clean for future voiceover / keyboard SFX layering.
+- Outro shows the actual URL + "This is a community project: No Ads, No Sign-up".
+- Published on YouTube Shorts.
+- Posted to 4 Facebook driver groups on Oct 13.
+- Remaining Facebook groups, TikTok, and Instagram planned for Oct 14. WhatsApp skipped deliberately.
 
 ---
 
