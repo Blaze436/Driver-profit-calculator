@@ -19,10 +19,12 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 - ✅ Left initial comments in approved groups (no link, no app mention)
 - ⏳ Distribution campaign in progress (7-day plan)
 
-**Unique users in GA4:** ~3 (includes my testing and my brother)
-**External drivers:** 0
-**Calculations logged:** ~10
-**Saves logged:** ~5
+**Unique users in GA4:** ~43 (includes my testing and family)
+**External drivers:** 0 confirmed
+**Calculations logged:** ~72
+**Saves logged:** ~49
+**Shares logged:** 1
+**Feedback form submissions:** 0
 
 ---
 
@@ -162,6 +164,11 @@ Posted launch content across Facebook driver groups. Used the Urdu introduction 
 - Published on YouTube Shorts.
 - Posted to 4 Facebook driver groups on Oct 13.
 - Remaining Facebook groups, TikTok, and Instagram planned for Oct 14. WhatsApp skipped deliberately.
+- Posted on YouTube Shorts: 207 views, ~11s average watch time.
+- TikTok and Instagram: 0 views each on the initial posts.
+- Facebook: 4 driver groups on Oct 13, plus personal post made public.
+- Site visits from video content: ~3.
+- No likes, comments, or shares yet.
 
 ---
 
