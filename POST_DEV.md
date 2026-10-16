@@ -17,10 +17,9 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 - ✅ FAQ built in Settings (11 expandable entries via `<details>`/`<summary>`)
 - ✅ Joined ~23 Facebook driver groups across Karachi, Lahore, Islamabad, and Pakistan-wide
 - ✅ Left initial comments in approved groups (no link, no app mention)
-- ⏳ Distribution campaign in progress (7-day plan)
+- ✅ Distribution campaign complete(Total 11-Days)
 
-**Unique users in GA4:** ~43 (includes my testing and family)
-**External drivers:** 0 confirmed
+**Unique users in GA4:** ~45 (includes my brother and me)
 **Calculations logged:** ~72
 **Saves logged:** ~49
 **Shares logged:** 1
@@ -45,7 +44,6 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 **Channels:**
 - Facebook groups (inDrive, Yango, Bykea drivers)
 - TikTok / YouTube Shorts
-- WhatsApp Status + personal shares
 - Direct messages to drivers who asked questions
 
 **Rules:**
@@ -55,26 +53,6 @@ The MVP is shipped. This file tracks what happens after launch, including distri
 - Use `share_button` as the UTM medium and `in_app` as the UTM campaign for the share-button row
 - Build shared links from the page address with any existing UTM tags stripped so shares do not inherit the sharer's tags
 - WhatsApp is for sharing, not cold discovery
-
----
-
-## UTM Links
-
-See `utm_links.md`.
-
----
-
-## User Testing Log
-
-| Date | Person | Role | Channel | Feedback |
-|------|--------|------|---------|----------|
-| 29 Sep | Brother | inDrive/Yango driver | WhatsApp | Great, but a bit hard to understand at first |
-| | | | | |
-
-**Feedback to ask for:**
-1. Did any number ever look wrong?
-2. What confused you?
-3. What feature did you keep wishing existed?
 
 ---
 
@@ -170,6 +148,15 @@ Posted launch content across Facebook driver groups. Used the Urdu introduction 
 - Site visits from video content: ~3.
 - No likes, comments, or shares yet.
 
+### Day 10 - Oct 15
+- Posted the video in many FaceBook groups.
+- The video got approved in many groups by admins.
+- The results will be logged tomorrow.
+
+### Day 11 - Oct 16
+- logged the overall results of the campaign
+- Wrap up this campaign for now.
+
 ---
 
 ## Group Status Snapshot (Oct 11)
@@ -206,7 +193,7 @@ Groups with active admin moderation: unknown — check per-post before launch
 
 ## Post-MVP Feature Backlog
 
-Ordered by priority. Add new ideas here — do not implement without a reason (feedback or strong intuition).
+Ordered by priority. Add new ideas here - do not implement without a reason (feedback or strong intuition).
 
 ### High Priority
 1. **Urdu translation** — full interface, not just FAQ. Critical for market reach. Estimated ~8-10 hours.
@@ -225,50 +212,6 @@ Ordered by priority. Add new ideas here — do not implement without a reason (f
 
 ---
 
-## Metrics to Track (Monthly)
-
-Update this table at the end of each month.
-
-| Month | Users | Calculations | Saves | Avg Session | Notes |
-|-------|-------|--------------|-------|-------------|-------|
-| Oct 2026 | ? | ? | ? | 1 min | Launch month |
-| Nov 2026 | | | | | |
-| Dec 2026 | | | | | |
-
-**Where to find these:**
-- GA4 → Reports → Engagement → Events
-- GA4 → Reports → User attributes → Demographics
-
----
-
-## Feedback Received (User Quotes)
-
-Direct quotes are gold for college applications. Collect them as they come.
-
-> *(placeholder — add as testers respond)*
-
-**Ask permission before quoting.** A one-line note like "Can I quote you in my college app?" should be enough.
-
----
-
-## College Portfolio Prep
-
-By November 1 (project deadline), collect:
-
-- [ ] Live URL (final)
-- [ ] Total calculations performed
-- [ ] Unique users count
-- [ ] Geographic breakdown (Karachi, Lahore, other)
-- [ ] Platform breakdown (inDrive, Yango, Bykea, Custom)
-- [ ] Screenshots of the app in use
-- [ ] At least 2 real driver quotes
-- [ ] Written reflection (from DEV_LOG)
-- [ ] Summary of any features added based on feedback
-
-**Screenshot every milestone.** GA4 dashboard, feedback messages, the app on a real phone. These are portfolio artifacts.
-
----
-
 ## Risks / Watch List
 
 - **Distribution may not take.** If the Facebook/TikTok push doesn't bring users, revisit hooks and channels. This is normal for first launches.
@@ -277,23 +220,62 @@ By November 1 (project deadline), collect:
 
 ---
 
-## Related Files
+## Launch Campaign Retrospective (16 October 2026)
 
-- `texts_en.md` — All field hints and FAQ text (source of truth for translations)
-- `utm_links.md` — Channel-specific tracked links
-- `groups.md` — Group status, rules, and launch strategy per group
+**Status:** Campaign wrapped. The Driver app now runs on maintenance: reply to comments, note any feedback, occasional post with a fresh intro. It jumps the queue only for bugs or wrong numbers.
+
+### Numbers
+
+**YouTube Shorts:** 212 views, ~11s average watch time.
+**TikTok:** 0 views on initial post.
+**Instagram:** 0 views on initial post.
+**Facebook:** 4 driver groups (Oct 13) + personal post (Oct 15) + more groups (Oct 15 evening).
+**Site visits from video:** ~3-5(excluding Facebook).
+**Likes / comments / shares across all platforms:** 0.
+**Feedback form submissions:** 0.
+**External drivers confirmed:** 0.
+
+### Progress against Definition of Done
+
+| Criterion | Target | Current |
+|---|---|---|
+| Live on public URL | ✅ | ✅ |
+| Real users (not me/family) | 5 | ~40 |
+| Real calculations | 50 | ~60 (mostly testing) |
+| Written/verbal feedback | 3 | 0 |
+| Bugs fixed | — | none reported |
+| Portfolio artifacts | — | ongoing |
+
+### What worked
+
+- Video production: silent master with type-in subtitles and blurred title card landed well on YouTube Shorts.
+- Real screenshots and a working URL in the outro built trust.
+- Admin etiquette: messaging admins in Urdu before posting worked better than the English version.
+- Posting across multiple groups over several days rather than blasting one day.
+- Honest logging: no fabricated user quotes or inflated numbers.
+
+### What didn't work
+
+- TikTok and Instagram reach: new accounts with no history get throttled. Not the video's fault.
+- Facebook group posts were buried by a trending topic ("top up") on the launch night.
+- Personal FB post was set to friends-only by accident — wasted the first 24 hours.
+- YouTube Shorts viewers don't click external links — video views and site visits are largely uncorrelated.
+- No engagement on any post.
+
+### What I'd change next time
+
+- **Post at the right time on the first attempt.** Check the group feed for trending topics before posting. If a big topic is dominating, wait.
+- **Verify the audience setting** before publishing on any platform.
+- **Lead with a hook, not a demo.** The first 3 seconds decide retention. A sharper hook ("How much do you ACTUALLY make per ride?") would likely improve watch time.
+- **Set expectations honestly.** 200 views on a first video is normal. 0 on TikTok is normal for a brand new account. Neither is a failure.
+- **Don't chase reach; build the Planner.** The Driver app is shipped. The video will keep trickling. Move on.
+
+### Handoff to maintenance mode
+
+- Reply to any comment or DM within 24 hours.
+- Log real feedback when it arrives.
+- Post occasionally with a fresh intro; do not re-post the same content.
+- Any bug report jumps the queue.
+- Do not add features to the Driver app until the Planner MVP is complete.
 
 ---
-
-## Definition of "Done" (for MVP)
-
-This project is considered done when:
-
-- [ ] Live on a public URL
-- [ ] At least 5 real users (not me, not my brother testing)
-- [ ] At least 50 real calculations logged
-- [ ] At least 3 pieces of written or verbal feedback collected
-- [ ] All obvious bugs fixed
-- [ ] Portfolio artifacts compiled
-
-Then move to maintenance mode.
